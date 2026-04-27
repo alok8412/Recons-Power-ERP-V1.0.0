@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Mini ERP Pro</title>
+
+<!-- PDF LIB -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+body { font-family: Arial; background:#0f172a; color:#fff; padding:20px; }
+.card { background:#111827; padding:15px; margin-bottom:15px; border-radius:10px; }
+input, select { padding:8px; margin:5px; border-radius:5px; border:none; }
+button { padding:8px 12px; margin:5px; border:none; border-radius:5px; cursor:pointer; }
+.btn { background:#22d3ee; color:#000; font-weight:bold; }
+table { width:100%; border-collapse:collapse; margin-top:10px; }
+th,td { border:1px solid #333; padding:8px; text-align:left; }
+.modal { position:fixed; top:0; left:0; right:0; bottom:0; display:none; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; }
+.modal-box { background:#fff; color:#000; padding:20px; width:600px; }
+</style>
+</head>
+
+<body>
+
+<h2>🚀 Mini ERP</h2>
+
+<!-- PRODUCT -->
+<div class="card">
+<h3>Add Product</h3>
+<input id="pname" placeholder="Product">
+<input id="pprice" type="number" placeholder="Price">
+<input id="pqty" type="number" placeholder="Qty">
+<button class="btn" onclick="addProduct()">Add</button>
+</div>
+
+<!-- CUSTOMER -->
+<div class="card">
+<h3>Add Customer</h3>
+<input id="cname" placeholder="Customer Name">
+<button class="btn" onclick="addCustomer()">Add</button>
+</div>
+
+<!-- SALE -->
+<div class="card">
+<h3>Make Sale</h3>
+
+<select id="sproduct"></select>
+<select id="scustomer"></select>
+<input id="sqty" type="number" placeholder="Qty">
+
+<button class="btn" onclick="makeSale()">Sell</button>
+</div>
+
+<!-- TABLE -->
+<div class="card">
+<h3>Products</h3>
+<table id="ptable"></table>
+</div>
+
+<!-- INVOICE MODAL -->
+<div class="modal" id="invoiceModal">
+  <div class="modal-box">
+    <div style="display:flex;justify-content:space-between;">
+      <h3>Invoice</h3>
+      <div>
+        <button onclick="printInvoice()">Print</button>
+        <button onclick="downloadPDF()">PDF</button>
+        <button onclick="closeModal()">X</button>
+      </div>
+    </div>
+    <div id="invoiceContent"></div>
+  </div>
+</div>
+
+<script>
+
+// DATA
+let products = [];
+let customers = [];
+let currentInvoice = null;
+
+// ADD PRODUCT
+function addProduct(){
+  let name = pname.value;
+  let price = +pprice.value;
+  let qty = +pqty.value;
+
+  products.push({name,price,qty});
+  pname.value=pprice.value=pqty.value="";
+
+  render();
+}
+
+// ADD CUSTOMER
+function addCustomer(){
+  customers.push({name:cname.value});
+  cname.value="";
+  render();
+}
+
+// RENDER
+function render(){
+  // products table
+  ptable.innerHTML = "<tr><th>Name</th><th>Price</th><th>Qty</th></tr>" +
+    products.map(p=>`<tr><td>${p.name}</td><td>${p.price}</td><td>${p.qty}</td></tr>`).join("");
+
+  // dropdowns
+  sproduct.innerHTML = products.map(p=>`<option>${p.name}</option>`).join("");
+  scustomer.innerHTML = customers.map(c=>`<option>${c.name}</option>`).join("");
+}
+
+// SALE
+function makeSale(){
+  let name = sproduct.value;
+  let customer = scustomer.value || "Walk-in";
+  let qty = +sqty.value;
+
+  let p = products.find(x=>x.name===name);
+  if(!p || p.qty<qty) return alert("Stock issue");
+
+  p.qty -= qty;
+
+  let subtotal = qty * p.price;
+  let gst = subtotal * 0.18;
+  let grand = subtotal + gst;
+
+  let sale = {name,customer,qty,subtotal,gst,grand,date:new Date().toLocaleString()};
+  showInvoice(sale);
+
+  render();
+}
+
+// INVOICE
+function showInvoice(sale){
+  currentInvoice = sale;
+
+  let html = `
+  <h2>ERP Pro</h2>
+  <p><b>Customer:</b> ${sale.customer}</p>
+  <p><b>Date:</b> ${sale.date}</p>
+
+  <table>
+    <tr><th>Item</th><th>Qty</th><th>Rate</th><th>Total</th></tr>
+    <tr>
+      <td>${sale.name}</td>
+      <td>${sale.qty}</td>
+      <td>${(sale.subtotal/sale.qty).toFixed(2)}</td>
+      <td>${sale.subtotal.toFixed(2)}</td>
+    </tr>
+  </table>
+
+  <p>Subtotal: ₹${sale.subtotal.toFixed(2)}</p>
+  <p>GST: ₹${sale.gst.toFixed(2)}</p>
+  <h3>Total: ₹${sale.grand.toFixed(2)}</h3>
+  `;
+
+  invoiceContent.innerHTML = html;
+  invoiceModal.style.display="flex";
+}
+
+// PRINT
+function printInvoice(){
+  let w = window.open("");
+  w.document.write(invoiceContent.innerHTML);
+  w.print();
+}
+
+// PDF
+function downloadPDF(){
+  html2pdf().from(invoiceContent).save("invoice.pdf");
+}
+
+// CLOSE
+function closeModal(){
+  invoiceModal.style.display="none";
+}
+
+</script>
+
+</body>
+</html>
