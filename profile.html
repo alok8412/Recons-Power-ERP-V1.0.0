@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock %}
+{% block page_title %}My Profile{% endblock %}
+
+{% block content %}
+<div style="display:grid;grid-template-columns:1fr 2fr;gap:20px;max-width:800px">
+
+  <!-- Profile Card -->
+  <div class="card" style="padding:24px;text-align:center">
+    <div style="width:72px;height:72px;border-radius:50%;background:var(--accent);
+      display:flex;align-items:center;justify-content:center;font-size:28px;
+      font-weight:700;color:#fff;margin:0 auto 16px">
+      {{ user.name[0].upper() }}
+    </div>
+    <div style="font-size:17px;font-weight:700;margin-bottom:4px">{{ user.name }}</div>
+    <div style="color:var(--text2);font-size:13px;margin-bottom:12px">{{ user.email }}</div>
+    <span class="badge {{ 'badge-red' if user.role=='admin' else 'badge-yellow' if user.role=='manager' else 'badge-purple' if user.role=='sales' else '' }}"
+      style="{% if user.role=='viewer' %}background:rgba(100,116,139,.2);color:var(--text2){% endif %};font-size:12px;padding:4px 12px">
+      {{ user.role.title() }}
+    </span>
+    <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
+      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Status</div>
+      <span class="badge {{ 'badge-green' if user.status=='active' else 'badge-red' }}">{{ user.status.title() }}</span>
+    </div>
+    <div style="margin-top:12px">
+      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Member Since</div>
+      <div style="font-size:12px;color:var(--text2)">{{ user.created[:10] }}</div>
+    </div>
+  </div>
+
+  <!-- Edit Form -->
+  <div class="card">
+    <div class="card-header"><span class="card-title">✏️ Update Profile</span></div>
+    <form method="POST" action="/profile" style="padding:20px">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" name="name" class="form-control" value="{{ user.name }}" required/>
+      </div>
+      <div class="form-group">
+        <label>Email (cannot change)</label>
+        <input type="email" class="form-control" value="{{ user.email }}" disabled
+          style="opacity:.5;cursor:not-allowed"/>
+      </div>
+      <div style="border-top:1px solid var(--border);padding-top:16px;margin-top:4px">
+        <div style="font-size:13px;color:var(--text2);margin-bottom:14px">
+          🔒 Change Password (leave blank to keep current)
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>New Password</label>
+            <input type="password" name="new_password" class="form-control" placeholder="Min 6 characters"/>
+          </div>
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" name="confirm_password" class="form-control" placeholder="Repeat new password"/>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">✅ Update Profile</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

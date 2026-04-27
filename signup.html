@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block title %}Sign Up{% endblock %}
+
+{% block auth_content %}
+<style>
+.auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,#1a2d5a 0%,#0a0f1e 70%);padding:20px}
+.auth-box{background:var(--panel);border:1px solid var(--border);border-radius:16px;
+  padding:44px;width:100%;max-width:440px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.auth-logo{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.auth-logo-icon{width:44px;height:44px;background:var(--accent);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:22px}
+.auth-logo h1{font-size:20px;font-weight:700}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:11px;font-weight:500;color:var(--text2);
+  text-transform:uppercase;letter-spacing:.3px;margin-bottom:5px}
+.form-control{width:100%;background:var(--bg2);border:1px solid var(--border);
+  border-radius:7px;padding:10px 13px;color:var(--text);font-size:13px;outline:none;transition:.15s}
+.form-control:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(59,126,255,.12)}
+select.form-control option{background:var(--panel)}
+.btn-full{width:100%;padding:12px;background:var(--accent);color:#fff;border:none;
+  border-radius:7px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s;margin-top:4px}
+.btn-full:hover{background:var(--accent2)}
+.auth-footer{text-align:center;margin-top:18px;font-size:13px;color:var(--text2)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.role-info{background:var(--bg2);border:1px solid var(--border);border-radius:8px;
+  padding:12px;margin-bottom:16px;font-size:12px}
+.role-info h4{color:var(--text2);margin-bottom:8px;font-size:11px;text-transform:uppercase}
+.role-row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--border)}
+.role-row:last-child{border-bottom:none}
+</style>
+
+<div class="auth-page">
+  <div class="auth-box">
+    <div class="auth-logo">
+      <div class="auth-logo-icon">🏢</div>
+      <div>
+        <h1>BizCore ERP</h1>
+        <span style="font-size:12px;color:var(--text2)">Create your account</span>
+      </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for cat, msg in messages %}
+        <div style="padding:10px 14px;border-radius:7px;margin-bottom:14px;font-size:13px;
+          background:{% if cat=='success' %}rgba(16,185,129,.12){% else %}rgba(239,68,68,.12){% endif %};
+          border:1px solid {% if cat=='success' %}rgba(16,185,129,.3){% else %}rgba(239,68,68,.3){% endif %};
+          color:{% if cat=='success' %}var(--green){% else %}var(--red){% endif %}">
+          {{ msg }}
+        </div>
+      {% endfor %}
+    {% endwith %}
+
+    <!-- Role info -->
+    <div class="role-info">
+      <h4>📋 Role Permissions</h4>
+      <div class="role-row"><span style="color:#f87171">Admin</span><span style="color:var(--text2)">Full access to everything</span></div>
+      <div class="role-row"><span style="color:#fb923c">Manager</span><span style="color:var(--text2)">Products, Customers, Sales</span></div>
+      <div class="role-row"><span style="color:#a78bfa">Sales</span><span style="color:var(--text2)">Customers & Sales only</span></div>
+      <div class="role-row"><span style="color:var(--text2)">Viewer</span><span style="color:var(--text2)">Dashboard & Reports only</span></div>
+    </div>
+
+    <form method="POST" action="/signup">
+      <div class="form-group">
+        <label>Full Name *</label>
+        <input type="text" name="name" class="form-control"
+               placeholder="Enter your full name" required/>
+      </div>
+      <div class="form-group">
+        <label>Email Address *</label>
+        <input type="email" name="email" class="form-control"
+               placeholder="Enter your email" required/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Password *</label>
+          <input type="password" name="password" class="form-control"
+                 placeholder="Min 6 characters" required/>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password *</label>
+          <input type="password" name="confirm" class="form-control"
+                 placeholder="Repeat password" required/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Select Role *</label>
+        <select name="role" class="form-control" required>
+          <option value="viewer">👁️ Viewer — Dashboard & Reports</option>
+          <option value="sales">💼 Sales — Customers & Sales</option>
+          <option value="manager">📋 Manager — Products, Customers, Sales</option>
+          <option value="admin">👑 Admin — Full Access</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-full">Create Account ✅</button>
+    </form>
+
+    <div class="auth-footer">
+      Already have an account? <a href="/login" style="color:var(--accent2);font-weight:500">Sign In</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

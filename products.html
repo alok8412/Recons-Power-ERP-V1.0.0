@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block title %}Products{% endblock %}
+{% block page_title %}Products <span>Catalog</span>{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="page-title">Products <span>{{ items|length }} total</span></div>
+  {% if session.role in ['admin','manager'] %}
+  <button class="btn btn-primary" onclick="openModal('addModal')">+ Add Product</button>
+  {% endif %}
+</div>
+
+<div class="card">
+  <table>
+    <thead><tr>
+      <th>ID</th><th>Name</th><th>Category</th><th>Price</th>
+      <th>Stock</th><th>Status</th><th>Created</th>
+      {% if session.role in ['admin','manager'] %}<th>Actions</th>{% endif %}
+    </tr></thead>
+    <tbody>
+    {% for item in items %}
+    <tr>
+      <td><code style="color:var(--green)">#{{ item.id }}</code></td>
+      <td style="font-weight:500">{{ item.name }}</td>
+      <td><span class="badge badge-blue">{{ item.category or '—' }}</span></td>
+      <td style="font-weight:600;color:var(--accent2)">₹{{ "{:,.0f}".format(item.price) }}</td>
+      <td>
+        <span class="{{ 'badge badge-red' if item.stock < 5 else 'badge badge-yellow' if item.stock < 15 else 'badge badge-green' }}">
+          {{ item.stock }} units
+        </span>
+      </td>
+      <td><span class="badge {{ 'badge-green' if item.status=='active' else 'badge-red' }}">{{ item.status.title() }}</span></td>
+      <td style="color:var(--text3);font-size:12px">{{ item.created[:10] }}</td>
+      {% if session.role in ['admin','manager'] %}
+      <td>
+        <button class="btn btn-warning btn-sm"
+          onclick="editProduct({{ item.id }},'{{ item.name }}','{{ item.category }}',{{ item.price }},{{ item.stock }})">
+          ✏️ Edit
+        </button>
+        {% if session.role == 'admin' %}
+        <a href="/products/delete/{{ item.id }}"
+           onclick="return confirm('Delete {{ item.name }}?')"
+           class="btn btn-danger btn-sm">🗑️ Del</a>
+        {% endif %}
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% if not items %}
+  <div style="padding:40px;text-align:center;color:var(--text3)">No products yet. Add your first product!</div>
+  {% endif %}
+</div>
+
+<!-- ADD MODAL -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>➕ Add New Product</h3>
+      <button class="modal-close" onclick="closeModal('addModal')">✕</button>
+    </div>
+    <form method="POST" action="/products/add">
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Product Name *</label>
+            <input type="text" name="name" class="form-control" placeholder="Enter product name" required/>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <input type="text" name="category" class="form-control" placeholder="Electronics, Furniture..."/>
+          </div>
+          <div class="form-group">
+            <label>Price (₹) *</label>
+            <input type="number" name="price" class="form-control" placeholder="0" min="0" step="0.01" required/>
+          </div>
+          <div class="form-group">
+            <label>Stock Quantity *</label>
+            <input type="number" name="stock" class="form-control" placeholder="0" min="0" required/>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" onclick="closeModal('addModal')"
+          style="background:transparent;border:1px solid var(--border);color:var(--text2)">Cancel</button>
+        <button type="submit" class="btn btn-primary">✅ Save Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>✏️ Edit Product</h3>
+      <button class="modal-close" onclick="closeModal('editModal')">✕</button>
+    </div>
+    <form method="POST" id="editForm">
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Product Name *</label>
+            <input type="text" name="name" id="edit_name" class="form-control" required/>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <input type="text" name="category" id="edit_category" class="form-control"/>
+          </div>
+          <div class="form-group">
+            <label>Price (₹) *</label>
+            <input type="number" name="price" id="edit_price" class="form-control" min="0" step="0.01" required/>
+          </div>
+          <div class="form-group">
+            <label>Stock Quantity *</label>
+            <input type="number" name="stock" id="edit_stock" class="form-control" min="0" required/>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" onclick="closeModal('editModal')"
+          style="background:transparent;border:1px solid var(--border);color:var(--text2)">Cancel</button>
+        <button type="submit" class="btn btn-primary">✅ Update Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function editProduct(id, name, category, price, stock){
+  document.getElementById('edit_name').value     = name;
+  document.getElementById('edit_category').value = category;
+  document.getElementById('edit_price').value    = price;
+  document.getElementById('edit_stock').value    = stock;
+  document.getElementById('editForm').action     = '/products/edit/' + id;
+  openModal('editModal');
+}
+</script>
+{% endblock %}

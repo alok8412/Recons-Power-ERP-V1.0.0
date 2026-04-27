@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% block title %}User Management{% endblock %}
+{% block page_title %}User Management <span>Admin Only</span>{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="page-title">Users <span>{{ items|length }} total</span></div>
+  <button class="btn btn-primary" onclick="openModal('addModal')">+ Add User</button>
+</div>
+
+<!-- Role Matrix -->
+<div class="card" style="margin-bottom:20px">
+  <div class="card-header"><span class="card-title">🔑 Role Permission Matrix</span></div>
+  <table>
+    <thead><tr>
+      <th>Role</th><th>Dashboard</th><th>Products</th><th>Customers</th>
+      <th>Sales</th><th>Reports</th><th>Users</th><th>Delete</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="badge badge-red">Admin</span></td>
+        <td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-yellow">Manager</span></td>
+        <td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-purple">Sales</span></td>
+        <td>✅</td><td>❌</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td>
+      </tr>
+      <tr>
+        <td><span class="badge" style="background:rgba(100,116,139,.2);color:var(--text2)">Viewer</span></td>
+        <td>✅</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>❌</td><td>❌</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Users Table -->
+<div class="card">
+  <table>
+    <thead><tr>
+      <th>ID</th><th>Name</th><th>Email</th><th>Role</th>
+      <th>Status</th><th>Created</th><th>Actions</th>
+    </tr></thead>
+    <tbody>
+    {% for item in items %}
+    <tr>
+      <td><code style="color:var(--accent2)">#{{ item.id }}</code></td>
+      <td style="font-weight:500">
+        {{ item.name }}
+        {% if item.id == session.user_id %}
+        <span class="badge badge-blue" style="font-size:9px">You</span>
+        {% endif %}
+      </td>
+      <td style="color:var(--text2)">{{ item.email }}</td>
+      <td>
+        <span class="badge {{ 'badge-red' if item.role=='admin' else 'badge-yellow' if item.role=='manager' else 'badge-purple' if item.role=='sales' else '' }}"
+          style="{% if item.role=='viewer' %}background:rgba(100,116,139,.2);color:var(--text2){% endif %}">
+          {{ item.role.title() }}
+        </span>
+      </td>
+      <td><span class="badge {{ 'badge-green' if item.status=='active' else 'badge-red' }}">{{ item.status.title() }}</span></td>
+      <td style="color:var(--text3);font-size:12px">{{ item.created[:10] }}</td>
+      <td>
+        <button class="btn btn-warning btn-sm"
+          onclick="editUser({{ item.id }},'{{ item.name }}','{{ item.role }}','{{ item.status }}')">
+          ✏️ Edit
+        </button>
+        {% if item.id != session.user_id %}
+        <a href="/users/delete/{{ item.id }}"
+           onclick="return confirm('Delete user {{ item.name }}?')"
+           class="btn btn-danger btn-sm">🗑️ Del</a>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- ADD MODAL -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>➕ Add New User</h3>
+      <button class="modal-close" onclick="closeModal('addModal')">✕</button>
+    </div>
+    <form method="POST" action="/users/add">
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" name="name" class="form-control" placeholder="Full name" required/>
+          </div>
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" name="email" class="form-control" placeholder="email@company.com" required/>
+          </div>
+          <div class="form-group">
+            <label>Password *</label>
+            <input type="password" name="password" class="form-control" placeholder="Min 6 chars" required/>
+          </div>
+          <div class="form-group">
+            <label>Role *</label>
+            <select name="role" class="form-control" required>
+              <option value="viewer">Viewer</option>
+              <option value="sales">Sales</option>
+              <option value="manager">Manager</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" onclick="closeModal('addModal')"
+          style="background:transparent;border:1px solid var(--border);color:var(--text2)">Cancel</button>
+        <button type="submit" class="btn btn-primary">✅ Add User</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>✏️ Edit User</h3>
+      <button class="modal-close" onclick="closeModal('editModal')">✕</button>
+    </div>
+    <form method="POST" id="editForm">
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" name="name" id="edit_name" class="form-control"/>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Role</label>
+            <select name="role" id="edit_role" class="form-control">
+              <option value="viewer">Viewer</option>
+              <option value="sales">Sales</option>
+              <option value="manager">Manager</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select name="status" id="edit_status" class="form-control">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" onclick="closeModal('editModal')"
+          style="background:transparent;border:1px solid var(--border);color:var(--text2)">Cancel</button>
+        <button type="submit" class="btn btn-primary">✅ Update User</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function editUser(id, name, role, status){
+  document.getElementById('edit_name').value   = name;
+  document.getElementById('edit_role').value   = role;
+  document.getElementById('edit_status').value = status;
+  document.getElementById('editForm').action   = '/users/edit/' + id;
+  openModal('editModal');
+}
+</script>
+{% endblock %}
