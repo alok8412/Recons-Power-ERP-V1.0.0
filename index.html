@@ -21,707 +21,139 @@
   --muted: #64748b;
   --radius: 12px;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* ===== LOGIN ===== */
-#loginPage {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(ellipse at 30% 50%, #0e2a4a 0%, var(--bg) 60%);
-}
-
-.login-box {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 48px 40px;
-  width: 360px;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-  animation: fadeUp 0.5s ease;
-}
-
-.login-logo {
-  font-family: 'Space Mono', monospace;
-  font-size: 22px;
-  color: var(--accent);
-  margin-bottom: 8px;
-  letter-spacing: -1px;
-}
-
-.login-box p {
-  color: var(--muted);
-  font-size: 14px;
-  margin-bottom: 32px;
-}
-
-.login-box label {
-  display: block;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  margin-bottom: 6px;
-  margin-top: 16px;
-}
-
-.login-box input, .login-box select {
-  width: 100%;
-  padding: 12px 14px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text);
-  font-size: 14px;
-  font-family: 'DM Sans', sans-serif;
-  transition: border-color 0.2s;
-}
-
-.login-box input:focus, .login-box select:focus {
-  outline: none;
-  border-color: var(--accent);
-}
-
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+#loginPage { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at 30% 50%, #0e2a4a 0%, var(--bg) 60%); }
+.login-box { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 48px 40px; width: 360px; box-shadow: 0 25px 60px rgba(0,0,0,0.5); animation: fadeUp 0.5s ease; }
+.login-logo { font-family: 'Space Mono', monospace; font-size: 22px; color: var(--accent); margin-bottom: 8px; letter-spacing: -1px; }
+.login-box p { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+.login-box label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; margin-top: 16px; }
+.login-box input, .login-box select { width: 100%; padding: 12px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; font-family: 'DM Sans', sans-serif; transition: border-color 0.2s; }
+.login-box input:focus, .login-box select:focus { outline: none; border-color: var(--accent); }
 .login-box select option { background: var(--surface); }
-
-.role-pills {
-  display: flex;
-  gap: 8px;
-  margin-top: 6px;
-}
-
-.role-pill {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--bg);
-  color: var(--muted);
-  cursor: pointer;
-  font-size: 13px;
-  text-align: center;
-  transition: all 0.2s;
-}
-
-.role-pill.active {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: rgba(34,211,238,0.08);
-}
-
-.btn-primary {
-  width: 100%;
-  padding: 13px;
-  background: var(--accent);
-  color: #0a0f1e;
-  border: none;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-  margin-top: 24px;
-  transition: opacity 0.2s, transform 0.1s;
-  font-family: 'DM Sans', sans-serif;
-}
-
+.role-pills { display: flex; gap: 8px; margin-top: 6px; }
+.role-pill { flex: 1; padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--muted); cursor: pointer; font-size: 13px; text-align: center; transition: all 0.2s; }
+.role-pill.active { border-color: var(--accent); color: var(--accent); background: rgba(34,211,238,0.08); }
+.btn-primary { width: 100%; padding: 13px; background: var(--accent); color: #0a0f1e; border: none; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; margin-top: 24px; transition: opacity 0.2s, transform 0.1s; font-family: 'DM Sans', sans-serif; }
 .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
 .btn-primary:active { transform: translateY(0); }
-
-.login-error {
-  color: var(--danger);
-  font-size: 13px;
-  margin-top: 10px;
-  text-align: center;
-  display: none;
-}
-
-.login-reset-hint {
-  color: var(--muted);
-  font-size: 12px;
-  margin-top: 8px;
-  text-align: center;
-  display: none;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
+.login-error { color: var(--danger); font-size: 13px; margin-top: 10px; text-align: center; display: none; }
+.login-reset-hint { color: var(--muted); font-size: 12px; margin-top: 8px; text-align: center; display: none; cursor: pointer; text-decoration: underline; }
 .login-reset-hint:hover { color: var(--accent); }
-
-/* ===== MAIN APP ===== */
 #app { display: none; min-height: 100vh; }
-
-/* SIDEBAR */
-.layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-.sidebar {
-  width: 240px;
-  background: var(--surface);
-  border-right: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  height: 100vh;
-  z-index: 100;
-  transition: transform 0.3s;
-}
-
-.sidebar-logo {
-  padding: 24px 20px;
-  font-family: 'Space Mono', monospace;
-  font-size: 16px;
-  color: var(--accent);
-  border-bottom: 1px solid var(--border);
-  letter-spacing: -1px;
-}
-
-.sidebar-logo span {
-  display: block;
-  font-size: 10px;
-  color: var(--muted);
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 400;
-  margin-top: 2px;
-  letter-spacing: 0;
-}
-
-.nav-section {
-  padding: 12px 12px 4px;
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--muted);
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  margin: 2px 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  color: var(--muted);
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.15s;
-  border: none;
-  background: none;
-  width: calc(100% - 16px);
-  text-align: left;
-  font-family: 'DM Sans', sans-serif;
-}
-
+.layout { display: flex; min-height: 100vh; }
+.sidebar { width: 240px; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; height: 100vh; z-index: 100; transition: transform 0.3s; }
+.sidebar-logo { padding: 24px 20px; font-family: 'Space Mono', monospace; font-size: 16px; color: var(--accent); border-bottom: 1px solid var(--border); letter-spacing: -1px; }
+.sidebar-logo span { display: block; font-size: 10px; color: var(--muted); font-family: 'DM Sans', sans-serif; font-weight: 400; margin-top: 2px; letter-spacing: 0; }
+.nav-section { padding: 12px 12px 4px; font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; margin: 2px 8px; border-radius: 8px; cursor: pointer; color: var(--muted); font-size: 14px; font-weight: 500; transition: all 0.15s; border: none; background: none; width: calc(100% - 16px); text-align: left; font-family: 'DM Sans', sans-serif; }
 .nav-item:hover { background: var(--surface2); color: var(--text); }
 .nav-item.active { background: rgba(34,211,238,0.1); color: var(--accent); }
 .nav-item .icon { font-size: 16px; width: 20px; text-align: center; }
-
-.sidebar-footer {
-  margin-top: auto;
-  padding: 16px;
-  border-top: 1px solid var(--border);
-}
-
-.user-pill {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  border-radius: 8px;
-  background: var(--surface2);
-  margin-bottom: 8px;
-}
-
-.user-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent3));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 12px;
-  color: #0a0f1e;
-  flex-shrink: 0;
-}
-
+.sidebar-footer { margin-top: auto; padding: 16px; border-top: 1px solid var(--border); }
+.user-pill { display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 8px; background: var(--surface2); margin-bottom: 8px; }
+.user-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent3)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: #0a0f1e; flex-shrink: 0; }
 .user-info { font-size: 13px; font-weight: 600; }
 .user-role { font-size: 11px; color: var(--muted); }
-
-.btn-logout {
-  width: 100%;
-  padding: 9px;
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--muted);
-  cursor: pointer;
-  font-size: 13px;
-  transition: all 0.2s;
-  font-family: 'DM Sans', sans-serif;
-}
-
+.btn-logout { width: 100%; padding: 9px; background: transparent; border: 1px solid var(--border); border-radius: 8px; color: var(--muted); cursor: pointer; font-size: 13px; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
 .btn-logout:hover { border-color: var(--danger); color: var(--danger); }
-
-/* MAIN CONTENT */
-.main {
-  margin-left: 240px;
-  flex: 1;
-  padding: 28px;
-  min-height: 100vh;
-}
-
-.page-header {
-  margin-bottom: 24px;
-}
-
-.page-header h1 {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--text);
-}
-
-.page-header p {
-  color: var(--muted);
-  font-size: 14px;
-  margin-top: 4px;
-}
-
-/* SECTIONS */
+.main { margin-left: 240px; flex: 1; padding: 28px; min-height: 100vh; }
+.page-header { margin-bottom: 24px; }
+.page-header h1 { font-size: 24px; font-weight: 700; color: var(--text); }
+.page-header p { color: var(--muted); font-size: 14px; margin-top: 4px; }
 .section { display: none; animation: fadeUp 0.3s ease; }
 .section.active { display: block; }
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* CARDS */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-.card-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  margin-bottom: 16px;
-}
-
-/* STATS GRID */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.stat-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.2s;
-}
-
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 20px; }
+.card-title { font-size: 14px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 16px; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; position: relative; overflow: hidden; transition: border-color 0.2s; }
 .stat-card:hover { border-color: var(--accent); }
-.stat-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--c, var(--accent));
-}
-
+.stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--c, var(--accent)); }
 .stat-icon { font-size: 22px; margin-bottom: 10px; }
-.stat-value {
-  font-family: 'Space Mono', monospace;
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--text);
-}
-
-.stat-label {
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 4px;
-}
-
-.stat-change {
-  font-size: 12px;
-  margin-top: 8px;
-  font-weight: 600;
-}
-
+.stat-value { font-family: 'Space Mono', monospace; font-size: 26px; font-weight: 700; color: var(--text); }
+.stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.stat-change { font-size: 12px; margin-top: 8px; font-weight: 600; }
 .stat-change.up { color: var(--success); }
 .stat-change.down { color: var(--danger); }
-
-/* GRID LAYOUTS */
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-
-@media (max-width: 900px) {
-  .two-col, .three-col { grid-template-columns: 1fr; }
-}
-
-/* FORM ELEMENTS */
-.form-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: flex-end;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  flex: 1;
-  min-width: 140px;
-}
-
-.form-group label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 10px 12px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text);
-  font-size: 14px;
-  font-family: 'DM Sans', sans-serif;
-  transition: border-color 0.2s;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-}
-
+@media (max-width: 900px) { .two-col, .three-col { grid-template-columns: 1fr; } }
+.form-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+.form-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 140px; }
+.form-group label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; }
+.form-group input, .form-group select, .form-group textarea { padding: 10px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; font-family: 'DM Sans', sans-serif; transition: border-color 0.2s; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
 .form-group select option { background: var(--surface); }
-
-.btn {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: 'DM Sans', sans-serif;
-  transition: all 0.15s;
-  white-space: nowrap;
-}
-
+.btn { padding: 10px 18px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; font-family: 'DM Sans', sans-serif; transition: all 0.15s; white-space: nowrap; }
 .btn-accent { background: var(--accent); color: #0a0f1e; }
 .btn-accent:hover { opacity: 0.85; }
-.btn-outline {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text);
-}
+.btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
 .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 .btn-danger { background: var(--danger); color: white; }
 .btn-success { background: var(--success); color: #0a0f1e; }
 .btn-sm { padding: 5px 10px; font-size: 12px; }
-
-/* TABLE */
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .table-wrap { overflow-x: auto; }
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-thead th {
-  background: var(--surface2);
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  padding: 10px 14px;
-  text-align: left;
-}
-
-tbody td {
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--border);
-  color: var(--text);
-}
-
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead th { background: var(--surface2); color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 10px 14px; text-align: left; }
+tbody td { padding: 12px 14px; border-bottom: 1px solid var(--border); color: var(--text); white-space: nowrap; }
 tbody tr:hover { background: var(--surface2); }
 tbody tr:last-child td { border-bottom: none; }
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 700;
-}
-
+.badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
 .badge-green { background: rgba(16,185,129,0.15); color: var(--success); }
 .badge-red { background: rgba(244,63,94,0.15); color: var(--danger); }
 .badge-yellow { background: rgba(245,158,11,0.15); color: var(--accent2); }
 .badge-blue { background: rgba(34,211,238,0.15); color: var(--accent); }
 .badge-purple { background: rgba(167,139,250,0.15); color: var(--accent3); }
-
-/* CHARTS */
-.chart-box {
-  position: relative;
-  height: 220px;
-}
-
-/* SEARCH BAR */
-.search-bar {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 16px;
-  align-items: center;
-}
-
-.search-bar input {
-  flex: 1;
-  padding: 10px 14px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text);
-  font-size: 14px;
-  font-family: 'DM Sans', sans-serif;
-}
-
+.chart-box { position: relative; height: 220px; }
+.search-bar { display: flex; gap: 10px; margin-bottom: 16px; align-items: center; }
+.search-bar input { flex: 1; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; font-family: 'DM Sans', sans-serif; }
 .search-bar input:focus { outline: none; border-color: var(--accent); }
-
-/* TOAST */
-.toast {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  padding: 12px 20px;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  color: white;
-  z-index: 9999;
-  animation: toastIn 0.3s ease;
-  display: none;
-}
-
+.toast { position: fixed; bottom: 24px; right: 24px; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 600; color: white; z-index: 9999; animation: toastIn 0.3s ease; display: none; }
 .toast.success { background: var(--success); color: #0a0f1e; }
 .toast.error { background: var(--danger); }
-
-@keyframes toastIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* MODAL */
-.modal-bg {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 500;
-  backdrop-filter: blur(4px);
-}
-
+@keyframes toastIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 500; backdrop-filter: blur(4px); }
 .modal-bg.open { display: flex; }
-
-.modal {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 28px;
-  width: 480px;
-  max-width: 95vw;
-  animation: fadeUp 0.3s ease;
-}
-
-.modal h3 {
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
-
-.modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-/* TABS */
-.tabs {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 20px;
-  background: var(--surface2);
-  padding: 4px;
-  border-radius: 10px;
-  width: fit-content;
-}
-
-.tab {
-  padding: 8px 18px;
-  border: none;
-  border-radius: 7px;
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: 'DM Sans', sans-serif;
-  transition: all 0.2s;
-}
-
-.tab.active {
-  background: var(--surface);
-  color: var(--text);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
-
-/* PROGRESS BAR */
-.progress-bar {
-  height: 6px;
-  background: var(--border);
-  border-radius: 3px;
-  overflow: hidden;
-  margin-top: 4px;
-}
-
-.progress-fill {
-  height: 100%;
-  border-radius: 3px;
-  transition: width 0.5s ease;
-}
-
-/* EMPTY STATE */
-.empty-state {
-  text-align: center;
-  padding: 40px 20px;
-  color: var(--muted);
-}
-
+.modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; width: 480px; max-width: 95vw; animation: fadeUp 0.3s ease; }
+.modal h3 { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+.modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.tabs { display: flex; gap: 4px; margin-bottom: 20px; background: var(--surface2); padding: 4px; border-radius: 10px; width: fit-content; }
+.tab { padding: 8px 18px; border: none; border-radius: 7px; background: transparent; color: var(--muted); cursor: pointer; font-size: 13px; font-weight: 600; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+.tab.active { background: var(--surface); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+.progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-top: 4px; }
+.progress-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+.empty-state { text-align: center; padding: 40px 20px; color: var(--muted); }
 .empty-state .e-icon { font-size: 36px; margin-bottom: 12px; }
 .empty-state p { font-size: 14px; }
-
-/* HAMBURGER */
-.hamburger {
-  display: none;
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  z-index: 200;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 10px;
-  cursor: pointer;
-  font-size: 18px;
-  color: var(--text);
-}
-
-@media (max-width: 768px) {
-  .sidebar { transform: translateX(-100%); }
-  .sidebar.open { transform: translateX(0); }
-  .main { margin-left: 0; padding: 16px; padding-top: 60px; }
-  .hamburger { display: block; }
-  .stats-grid { grid-template-columns: 1fr 1fr; }
-}
-
-/* EXPORT BUTTONS */
-.export-row {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-bottom: 12px;
-}
-
-/* DROP ZONE */
-.drop-zone {
-  border: 2px dashed var(--border);
-  border-radius: 10px;
-  padding: 32px 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s;
-  background: var(--bg);
-  margin-top: 8px;
-}
-.drop-zone:hover, .drop-zone.over {
-  border-color: var(--accent);
-  background: rgba(34,211,238,0.05);
-}
+.hamburger { display: none; position: fixed; top: 16px; left: 16px; z-index: 200; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; cursor: pointer; font-size: 18px; color: var(--text); }
+@media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .sidebar.open { transform: translateX(0); } .main { margin-left: 0; padding: 16px; padding-top: 60px; } .hamburger { display: block; } .stats-grid { grid-template-columns: 1fr 1fr; } }
+.export-row { display: flex; gap: 8px; justify-content: flex-end; margin-bottom: 12px; }
+.drop-zone { border: 2px dashed var(--border); border-radius: 10px; padding: 32px 20px; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--bg); margin-top: 8px; }
+.drop-zone:hover, .drop-zone.over { border-color: var(--accent); background: rgba(34,211,238,0.05); }
 .dz-icon { font-size: 32px; margin-bottom: 8px; }
 .dz-text { font-size: 14px; font-weight: 600; color: var(--text); }
 .dz-hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
-
 .import-row-ok  { background: rgba(16,185,129,0.06); }
 .import-row-err { background: rgba(244,63,94,0.06); }
-
-.imp-hist-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 13px;
-}
+.imp-hist-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
 .imp-hist-item:last-child { border-bottom: none; }
+/* FIX: prevent text wrapping in table cells that should be single-line */
+#ptable tbody td:first-child { white-space: normal; max-width: 180px; word-break: break-word; }
 </style>
 </head>
 <body>
 
-<!-- ===== LOGIN ===== -->
+<!-- LOGIN -->
 <div id="loginPage">
   <div class="login-box">
-    <div class="login-logo">⬡ RECONS  ERP Pro Powered By ALOK</div>
+    <div class="login-logo">⬡ RECONS ERP Pro Powered By ALOK</div>
     <p>Sign in to your workspace</p>
-
     <label>Username</label>
     <input id="username" placeholder="Enter username" autocomplete="off">
-
     <label>Password</label>
     <input id="password" type="password" placeholder="Enter password">
-
     <label>Role</label>
     <div class="role-pills">
       <div class="role-pill active" onclick="selectRole('admin',this)">🔑 Admin</div>
@@ -729,41 +161,30 @@ tbody tr:last-child td { border-bottom: none; }
       <div class="role-pill" onclick="selectRole('user',this)">👤 User</div>
     </div>
     <input type="hidden" id="roleInput" value="admin">
-
     <button class="btn-primary" onclick="login()">Sign In →</button>
     <div id="loginError" class="login-error">❌ Invalid credentials. Default: admin / 123</div>
     <div id="loginResetHint" class="login-reset-hint" onclick="resetAndLogin()">🔄 Click here to reset app data &amp; restore default login</div>
   </div>
 </div>
 
-<!-- ===== APP ===== -->
+<!-- APP -->
 <div id="app">
   <button class="hamburger" onclick="toggleSidebar()">☰</button>
-
   <div class="layout">
-    <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar">
-      <div class="sidebar-logo">
-        ⬡ RECONS  ERP Pro Powered By ALOK
-        <span>Business Suite v2.0</span>
-      </div>
-
+      <div class="sidebar-logo">⬡ RECONS ERP Pro Powered By ALOK<span>Business Suite v2.0</span></div>
       <div class="nav-section">Main</div>
       <button class="nav-item active" onclick="show('dashboard')"><span class="icon">📊</span> Dashboard</button>
       <button class="nav-item" onclick="show('inventory')"><span class="icon">📦</span> Inventory</button>
       <button class="nav-item" onclick="show('sales')"><span class="icon">🛒</span> Sales</button>
       <button class="nav-item" onclick="show('purchases')"><span class="icon">📥</span> Purchases</button>
-
       <div class="nav-section">People</div>
       <button class="nav-item" onclick="show('customers')"><span class="icon">👥</span> Customers</button>
       <button class="nav-item" onclick="show('users')"><span class="icon">🔐</span> Users</button>
-
       <div class="nav-section">Analytics</div>
       <button class="nav-item" onclick="show('reports')"><span class="icon">📈</span> Reports</button>
-
       <div class="nav-section">Tools</div>
       <button class="nav-item" onclick="show('bulkimport')"><span class="icon">📂</span> Bulk Import</button>
-
       <div class="sidebar-footer">
         <div class="user-pill">
           <div class="user-avatar" id="userAvatar">A</div>
@@ -776,115 +197,44 @@ tbody tr:last-child td { border-bottom: none; }
       </div>
     </div>
 
-    <!-- MAIN CONTENT -->
     <div class="main">
 
       <!-- DASHBOARD -->
       <div id="dashboard" class="section active">
-        <div class="page-header">
-          <h1>Dashboard</h1>
-          <p>Welcome back! Here's what's happening today.</p>
-        </div>
-
+        <div class="page-header"><h1>Dashboard</h1><p>Welcome back! Here's what's happening today.</p></div>
         <div class="stats-grid">
-          <div class="stat-card" style="--c: var(--accent)">
-            <div class="stat-icon">📦</div>
-            <div class="stat-value" id="d_products">0</div>
-            <div class="stat-label">Total Products</div>
-          </div>
-          <div class="stat-card" style="--c: var(--success)">
-            <div class="stat-icon">💰</div>
-            <div class="stat-value" id="d_sales_val">₹0</div>
-            <div class="stat-label">Total Sales Revenue</div>
-          </div>
-          <div class="stat-card" style="--c: var(--accent2)">
-            <div class="stat-icon">🛍️</div>
-            <div class="stat-value" id="d_sales_count">0</div>
-            <div class="stat-label">Total Orders</div>
-          </div>
-          <div class="stat-card" style="--c: var(--danger)">
-            <div class="stat-icon">📤</div>
-            <div class="stat-value" id="d_expenses">₹0</div>
-            <div class="stat-label">Total Expenses</div>
-          </div>
-          <div class="stat-card" style="--c: var(--accent3)">
-            <div class="stat-icon">👥</div>
-            <div class="stat-value" id="d_customers">0</div>
-            <div class="stat-label">Customers</div>
-          </div>
-          <div class="stat-card" style="--c: var(--success)">
-            <div class="stat-icon">📈</div>
-            <div class="stat-value" id="d_profit">₹0</div>
-            <div class="stat-label">Net Profit</div>
-          </div>
+          <div class="stat-card" style="--c: var(--accent)"><div class="stat-icon">📦</div><div class="stat-value" id="d_products">0</div><div class="stat-label">Total Products</div></div>
+          <div class="stat-card" style="--c: var(--success)"><div class="stat-icon">💰</div><div class="stat-value" id="d_sales_val">₹0</div><div class="stat-label">Total Sales Revenue</div></div>
+          <div class="stat-card" style="--c: var(--accent2)"><div class="stat-icon">🛍️</div><div class="stat-value" id="d_sales_count">0</div><div class="stat-label">Total Orders</div></div>
+          <div class="stat-card" style="--c: var(--danger)"><div class="stat-icon">📤</div><div class="stat-value" id="d_expenses">₹0</div><div class="stat-label">Total Expenses</div></div>
+          <div class="stat-card" style="--c: var(--accent3)"><div class="stat-icon">👥</div><div class="stat-value" id="d_customers">0</div><div class="stat-label">Customers</div></div>
+          <div class="stat-card" style="--c: var(--success)"><div class="stat-icon">📈</div><div class="stat-value" id="d_profit">₹0</div><div class="stat-label">Net Profit</div></div>
         </div>
-
         <div class="two-col">
-          <div class="card">
-            <div class="card-title">Sales Trend (Last 7 Days)</div>
-            <div class="chart-box">
-              <canvas id="salesChart"></canvas>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-title">Expenses by Category</div>
-            <div class="chart-box">
-              <canvas id="expenseChart"></canvas>
-            </div>
-          </div>
+          <div class="card"><div class="card-title">Sales Trend (Last 7 Days)</div><div class="chart-box"><canvas id="salesChart"></canvas></div></div>
+          <div class="card"><div class="card-title">Expenses by Category</div><div class="chart-box"><canvas id="expenseChart"></canvas></div></div>
         </div>
-
         <div class="two-col">
-          <div class="card">
-            <div class="card-title">Low Stock Alert</div>
-            <div id="lowStockList"><div class="empty-state"><div class="e-icon">✅</div><p>All products are well stocked</p></div></div>
-          </div>
-          <div class="card">
-            <div class="card-title">Recent Sales</div>
-            <div id="recentSalesList"><div class="empty-state"><div class="e-icon">🛒</div><p>No recent sales</p></div></div>
-          </div>
+          <div class="card"><div class="card-title">Low Stock Alert</div><div id="lowStockList"><div class="empty-state"><div class="e-icon">✅</div><p>All products are well stocked</p></div></div></div>
+          <div class="card"><div class="card-title">Recent Sales</div><div id="recentSalesList"><div class="empty-state"><div class="e-icon">🛒</div><p>No recent sales</p></div></div></div>
         </div>
       </div>
 
       <!-- INVENTORY -->
       <div id="inventory" class="section">
-        <div class="page-header">
-          <h1>Inventory</h1>
-          <p>Manage your products and stock levels</p>
-        </div>
-
+        <div class="page-header"><h1>Inventory</h1><p>Manage your products and stock levels</p></div>
         <div class="card">
           <div class="card-title">Add Product</div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Product Name</label>
-              <input id="pname" placeholder="e.g. Widget Pro">
-            </div>
-            <div class="form-group" style="max-width:120px">
-              <label>Category</label>
-              <select id="pcat">
-                <option>Electronics</option>
-                <option>Clothing</option>
-                <option>Food</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="form-group" style="max-width:110px">
-              <label>Quantity</label>
-              <input id="pqty" type="number" placeholder="0" min="0">
-            </div>
-            <div class="form-group" style="max-width:130px">
-              <label>Price (₹)</label>
-              <input id="pprice" type="number" placeholder="0" min="0">
-            </div>
-            <div class="form-group" style="max-width:130px">
-              <label>Low Stock At</label>
-              <input id="plowstock" type="number" placeholder="5" min="0">
-            </div>
-            <button class="btn btn-accent" style="margin-top:16px" onclick="addProduct()">+ Add</button>
+            <div class="form-group"><label>Product Name</label><input id="pname" placeholder="e.g. Widget Pro"></div>
+            <div class="form-group" style="max-width:120px"><label>Category</label>
+              <select id="pcat"><option>Electronics</option><option>Clothing</option><option>Food</option><option>Other</option></select></div>
+            <div class="form-group" style="max-width:110px"><label>Quantity</label><input id="pqty" type="number" placeholder="0" min="0"></div>
+            <div class="form-group" style="max-width:130px"><label>Price (₹)</label><input id="pprice" type="number" placeholder="0" min="0"></div>
+            <div class="form-group" style="max-width:130px"><label>Low Stock At</label><input id="plowstock" type="number" placeholder="5" min="0"></div>
+            <button class="btn btn-accent" id="addProductBtn" style="margin-top:16px" onclick="addProduct()">+ Add</button>
           </div>
         </div>
-
         <div class="card">
           <div class="card-title">Product List</div>
           <div class="search-bar">
@@ -902,34 +252,17 @@ tbody tr:last-child td { border-bottom: none; }
 
       <!-- SALES -->
       <div id="sales" class="section">
-        <div class="page-header">
-          <h1>Sales</h1>
-          <p>Create orders and view sales history</p>
-        </div>
-
+        <div class="page-header"><h1>Sales</h1><p>Create orders and view sales history</p></div>
         <div class="card">
           <div class="card-title">Create Sale</div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Customer</label>
-              <select id="scustomer"><option value="">Walk-in Customer</option></select>
-            </div>
-            <div class="form-group">
-              <label>Product</label>
-              <select id="sproduct" onchange="updateSalePrice()"></select>
-            </div>
-            <div class="form-group" style="max-width:100px">
-              <label>Quantity</label>
-              <input id="sqty" type="number" placeholder="1" min="1" oninput="updateSalePrice()">
-            </div>
-            <div class="form-group" style="max-width:140px">
-              <label>Est. Total (with GST)</label>
-              <input id="sTotal" readonly placeholder="₹0.00" style="color:var(--accent)">
-            </div>
-            <button class="btn btn-success" style="margin-top:16px" onclick="makeSale()">🛒 Sell & Invoice</button>
+            <div class="form-group"><label>Customer</label><select id="scustomer"><option value="">Walk-in Customer</option></select></div>
+            <div class="form-group"><label>Product</label><select id="sproduct" onchange="updateSalePrice()"></select></div>
+            <div class="form-group" style="max-width:100px"><label>Quantity</label><input id="sqty" type="number" placeholder="1" min="1" oninput="updateSalePrice()"></div>
+            <div class="form-group" style="max-width:140px"><label>Est. Total (with GST)</label><input id="sTotal" readonly placeholder="₹0.00" style="color:var(--accent)"></div>
+            <button class="btn btn-success" style="margin-top:16px" onclick="makeSale()">🛒 Sell &amp; Invoice</button>
           </div>
         </div>
-
         <div class="card">
           <div class="card-title">Sales History</div>
           <div class="search-bar">
@@ -946,43 +279,20 @@ tbody tr:last-child td { border-bottom: none; }
         </div>
       </div>
 
-      <!-- PURCHASES / EXPENSES -->
+      <!-- PURCHASES -->
       <div id="purchases" class="section">
-        <div class="page-header">
-          <h1>Purchases & Expenses</h1>
-          <p>Track your business expenditures</p>
-        </div>
-
+        <div class="page-header"><h1>Purchases &amp; Expenses</h1><p>Track your business expenditures</p></div>
         <div class="card">
           <div class="card-title">Add Expense / Purchase</div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Description</label>
-              <input id="expDesc" placeholder="e.g. Office Supplies">
-            </div>
-            <div class="form-group" style="max-width:140px">
-              <label>Category</label>
-              <select id="expCat">
-                <option>Inventory Purchase</option>
-                <option>Utilities</option>
-                <option>Salaries</option>
-                <option>Marketing</option>
-                <option>Rent</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="form-group" style="max-width:130px">
-              <label>Amount (₹)</label>
-              <input id="expAmount" type="number" placeholder="0" min="0">
-            </div>
-            <div class="form-group" style="max-width:150px">
-              <label>Date</label>
-              <input id="expDate" type="date">
-            </div>
+            <div class="form-group"><label>Description</label><input id="expDesc" placeholder="e.g. Office Supplies"></div>
+            <div class="form-group" style="max-width:140px"><label>Category</label>
+              <select id="expCat"><option>Inventory Purchase</option><option>Utilities</option><option>Salaries</option><option>Marketing</option><option>Rent</option><option>Other</option></select></div>
+            <div class="form-group" style="max-width:130px"><label>Amount (₹)</label><input id="expAmount" type="number" placeholder="0" min="0"></div>
+            <div class="form-group" style="max-width:150px"><label>Date</label><input id="expDate" type="date"></div>
             <button class="btn btn-accent" style="margin-top:16px" onclick="addExpense()">+ Add</button>
           </div>
         </div>
-
         <div class="card">
           <div class="card-title">Expense Log</div>
           <div class="search-bar">
@@ -1000,38 +310,18 @@ tbody tr:last-child td { border-bottom: none; }
 
       <!-- CUSTOMERS -->
       <div id="customers" class="section">
-        <div class="page-header">
-          <h1>Customers</h1>
-          <p>Manage your customer relationships</p>
-        </div>
-
+        <div class="page-header"><h1>Customers</h1><p>Manage your customer relationships</p></div>
         <div class="card">
           <div class="card-title">Add Customer</div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Full Name</label>
-              <input id="cname" placeholder="e.g. Rahul Sharma">
-            </div>
-            <div class="form-group">
-              <label>Phone</label>
-              <input id="cphone" placeholder="e.g. 9876543210" maxlength="10">
-            </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input id="cemail" type="email" placeholder="e.g. rahul@email.com">
-            </div>
-            <div class="form-group" style="max-width:120px">
-              <label>Type</label>
-              <select id="ctype">
-                <option>Regular</option>
-                <option>VIP</option>
-                <option>Wholesale</option>
-              </select>
-            </div>
+            <div class="form-group"><label>Full Name</label><input id="cname" placeholder="e.g. Rahul Sharma"></div>
+            <div class="form-group"><label>Phone</label><input id="cphone" placeholder="e.g. 9876543210" maxlength="10"></div>
+            <div class="form-group"><label>Email</label><input id="cemail" type="email" placeholder="e.g. rahul@email.com"></div>
+            <div class="form-group" style="max-width:120px"><label>Type</label>
+              <select id="ctype"><option>Regular</option><option>VIP</option><option>Wholesale</option></select></div>
             <button class="btn btn-accent" style="margin-top:16px" onclick="addCustomer()">+ Add</button>
           </div>
         </div>
-
         <div class="card">
           <div class="card-title">Customer Directory</div>
           <div class="search-bar">
@@ -1049,42 +339,19 @@ tbody tr:last-child td { border-bottom: none; }
 
       <!-- USERS -->
       <div id="users" class="section">
-        <div class="page-header">
-          <h1>User Management</h1>
-          <p>Manage roles and access control</p>
-        </div>
-
-        <div class="card" id="adminOnlyMsg" style="display:none">
-          <div class="empty-state">
-            <div class="e-icon">🔒</div>
-            <p>You need Admin privileges to manage users.</p>
-          </div>
-        </div>
-
+        <div class="page-header"><h1>User Management</h1><p>Manage roles and access control</p></div>
+        <div class="card" id="adminOnlyMsg" style="display:none"><div class="empty-state"><div class="e-icon">🔒</div><p>You need Admin privileges to manage users.</p></div></div>
         <div id="userMgmtContent">
           <div class="card">
             <div class="card-title">Add System User</div>
             <div class="form-row">
-              <div class="form-group">
-                <label>Username</label>
-                <input id="newUsername" placeholder="e.g. john_manager">
-              </div>
-              <div class="form-group">
-                <label>Password</label>
-                <input id="newPassword" type="password" placeholder="Min 4 chars">
-              </div>
-              <div class="form-group" style="max-width:130px">
-                <label>Role</label>
-                <select id="newRole">
-                  <option value="admin">Admin</option>
-                  <option value="manager">Manager</option>
-                  <option value="user">User</option>
-                </select>
-              </div>
+              <div class="form-group"><label>Username</label><input id="newUsername" placeholder="e.g. john_manager"></div>
+              <div class="form-group"><label>Password</label><input id="newPassword" type="password" placeholder="Min 4 chars"></div>
+              <div class="form-group" style="max-width:130px"><label>Role</label>
+                <select id="newRole"><option value="admin">Admin</option><option value="manager">Manager</option><option value="user">User</option></select></div>
               <button class="btn btn-accent" style="margin-top:16px" onclick="addUser()">+ Add User</button>
             </div>
           </div>
-
           <div class="card">
             <div class="card-title">System Users</div>
             <div class="table-wrap">
@@ -1099,80 +366,32 @@ tbody tr:last-child td { border-bottom: none; }
 
       <!-- REPORTS -->
       <div id="reports" class="section">
-        <div class="page-header">
-          <h1>Reports & Analytics</h1>
-          <p>Financial insights and performance metrics</p>
-        </div>
-
+        <div class="page-header"><h1>Reports &amp; Analytics</h1><p>Financial insights and performance metrics</p></div>
         <div class="tabs">
           <button class="tab active" onclick="switchTab('rOverview',this)">Overview</button>
           <button class="tab" onclick="switchTab('rSales',this)">Sales</button>
           <button class="tab" onclick="switchTab('rExpenses',this)">Expenses</button>
           <button class="tab" onclick="switchTab('rInventory',this)">Inventory</button>
         </div>
-
         <div id="rOverview">
           <div class="stats-grid">
-            <div class="stat-card" style="--c:var(--success)">
-              <div class="stat-icon">💰</div>
-              <div class="stat-value" id="r_revenue">₹0</div>
-              <div class="stat-label">Gross Revenue</div>
-            </div>
-            <div class="stat-card" style="--c:var(--danger)">
-              <div class="stat-icon">📤</div>
-              <div class="stat-value" id="r_expenses">₹0</div>
-              <div class="stat-label">Total Expenses</div>
-            </div>
-            <div class="stat-card" style="--c:var(--accent)">
-              <div class="stat-icon">📈</div>
-              <div class="stat-value" id="r_profit">₹0</div>
-              <div class="stat-label">Net Profit</div>
-            </div>
-            <div class="stat-card" style="--c:var(--accent3)">
-              <div class="stat-icon">🏛️</div>
-              <div class="stat-value" id="r_gst">₹0</div>
-              <div class="stat-label">Total GST Collected</div>
-            </div>
+            <div class="stat-card" style="--c:var(--success)"><div class="stat-icon">💰</div><div class="stat-value" id="r_revenue">₹0</div><div class="stat-label">Gross Revenue</div></div>
+            <div class="stat-card" style="--c:var(--danger)"><div class="stat-icon">📤</div><div class="stat-value" id="r_expenses">₹0</div><div class="stat-label">Total Expenses</div></div>
+            <div class="stat-card" style="--c:var(--accent)"><div class="stat-icon">📈</div><div class="stat-value" id="r_profit">₹0</div><div class="stat-label">Net Profit</div></div>
+            <div class="stat-card" style="--c:var(--accent3)"><div class="stat-icon">🏛️</div><div class="stat-value" id="r_gst">₹0</div><div class="stat-label">Total GST Collected</div></div>
           </div>
-          <div class="card">
-            <div class="card-title">Profit & Loss Overview</div>
-            <div class="chart-box" style="height:260px">
-              <canvas id="plChart"></canvas>
-            </div>
-          </div>
+          <div class="card"><div class="card-title">Profit &amp; Loss Overview</div><div class="chart-box" style="height:260px"><canvas id="plChart"></canvas></div></div>
         </div>
-
         <div id="rSales" style="display:none">
-          <div class="card">
-            <div class="card-title">Sales by Product</div>
-            <div class="chart-box" style="height:260px">
-              <canvas id="productSalesChart"></canvas>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-title">Top Products by Revenue</div>
-            <div id="topProductsTable"></div>
-          </div>
+          <div class="card"><div class="card-title">Sales by Product</div><div class="chart-box" style="height:260px"><canvas id="productSalesChart"></canvas></div></div>
+          <div class="card"><div class="card-title">Top Products by Revenue</div><div id="topProductsTable"></div></div>
         </div>
-
         <div id="rExpenses" style="display:none">
-          <div class="card">
-            <div class="card-title">Expenses by Category</div>
-            <div class="chart-box" style="height:260px">
-              <canvas id="expCatChart"></canvas>
-            </div>
-          </div>
+          <div class="card"><div class="card-title">Expenses by Category</div><div class="chart-box" style="height:260px"><canvas id="expCatChart"></canvas></div></div>
         </div>
-
         <div id="rInventory" style="display:none">
-          <div class="card">
-            <div class="card-title">Stock Value by Product</div>
-            <div class="chart-box" style="height:260px">
-              <canvas id="stockChart"></canvas>
-            </div>
-          </div>
+          <div class="card"><div class="card-title">Stock Value by Product</div><div class="chart-box" style="height:260px"><canvas id="stockChart"></canvas></div></div>
         </div>
-
         <div style="margin-top:16px; display:flex; gap:10px">
           <button class="btn btn-outline" onclick="exportSalesPDF()">⬇ Export Sales PDF</button>
           <button class="btn btn-outline" onclick="exportTableCSV('stable','sales_report.csv')">⬇ Export Sales CSV</button>
@@ -1182,160 +401,70 @@ tbody tr:last-child td { border-bottom: none; }
 
       <!-- BULK IMPORT -->
       <div id="bulkimport" class="section">
-        <div class="page-header">
-          <h1>Bulk Import</h1>
-          <p>Upload CSV files to import Products, Customers, Sales or Expenses in one shot</p>
-        </div>
-
+        <div class="page-header"><h1>Bulk Import</h1><p>Upload CSV files to import Products, Customers, Sales or Expenses in one shot</p></div>
         <div class="card" style="border-color:var(--accent);background:rgba(34,211,238,0.04)">
           <div class="card-title">📋 How It Works</div>
-          <div style="font-size:13px;color:var(--muted);line-height:2">
-            1. Choose an import type &nbsp;→&nbsp; 2. Download the sample template &nbsp;→&nbsp;
-            3. Fill it in (Excel / Sheets / Notepad) &nbsp;→&nbsp; 4. Upload &amp; Preview &nbsp;→&nbsp; 5. Confirm Import
-          </div>
+          <div style="font-size:13px;color:var(--muted);line-height:2">1. Choose an import type &nbsp;→&nbsp; 2. Download the sample template &nbsp;→&nbsp; 3. Fill it in &nbsp;→&nbsp; 4. Upload &amp; Preview &nbsp;→&nbsp; 5. Confirm Import</div>
         </div>
-
         <div class="tabs" style="margin-bottom:24px">
           <button class="tab active" onclick="switchImportTab('imp_products',this)">📦 Products</button>
           <button class="tab" onclick="switchImportTab('imp_customers',this)">👥 Customers</button>
           <button class="tab" onclick="switchImportTab('imp_sales',this)">🛒 Sales</button>
           <button class="tab" onclick="switchImportTab('imp_expenses',this)">📤 Expenses</button>
         </div>
-
-        <!-- PRODUCTS -->
         <div id="imp_products">
           <div class="two-col">
-            <div class="card">
-              <div class="card-title">1 · Download Template</div>
-              <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Required columns: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:12px">name, category, qty, price, low_stock</code></p>
-              <button class="btn btn-outline" onclick="downloadTemplate('products')">⬇ Products Template</button>
-            </div>
-            <div class="card">
-              <div class="card-title">2 · Upload CSV</div>
-              <div class="drop-zone" id="dz_products" onclick="document.getElementById('csv_products').click()" ondragover="dzOver(event,'dz_products')" ondragleave="dzLeave('dz_products')" ondrop="dzDrop(event,'products')">
-                <div class="dz-icon">📁</div>
-                <div class="dz-text">Click or drag &amp; drop CSV here</div>
-                <div class="dz-hint">.csv files only</div>
-              </div>
-              <input type="file" id="csv_products" accept=".csv" style="display:none" onchange="handleCSV(event,'products')">
-            </div>
+            <div class="card"><div class="card-title">1 · Download Template</div><p style="font-size:13px;color:var(--muted);margin-bottom:14px">Required columns: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:12px">name, category, qty, price, low_stock</code></p><button class="btn btn-outline" onclick="downloadTemplate('products')">⬇ Products Template</button></div>
+            <div class="card"><div class="card-title">2 · Upload CSV</div><div class="drop-zone" id="dz_products" onclick="document.getElementById('csv_products').click()" ondragover="dzOver(event,'dz_products')" ondragleave="dzLeave('dz_products')" ondrop="dzDrop(event,'products')"><div class="dz-icon">📁</div><div class="dz-text">Click or drag &amp; drop CSV here</div><div class="dz-hint">.csv files only</div></div><input type="file" id="csv_products" accept=".csv" style="display:none" onchange="handleCSV(event,'products')"></div>
           </div>
           <div class="card" id="preview_products" style="display:none">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-              <div class="card-title" style="margin:0">3 · Preview &amp; Confirm</div>
-              <div style="display:flex;gap:8px">
-                <button class="btn btn-outline btn-sm" onclick="clearImport('products')">✕ Clear</button>
-                <button class="btn btn-success" onclick="confirmImport('products')">✅ Import All</button>
-              </div>
-            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="card-title" style="margin:0">3 · Preview &amp; Confirm</div><div style="display:flex;gap:8px"><button class="btn btn-outline btn-sm" onclick="clearImport('products')">✕ Clear</button><button class="btn btn-success" onclick="confirmImport('products')">✅ Import All</button></div></div>
             <div id="preview_status_products" style="margin-bottom:10px;font-size:13px"></div>
             <div class="table-wrap"><table id="preview_table_products"></table></div>
           </div>
         </div>
-
-        <!-- CUSTOMERS -->
         <div id="imp_customers" style="display:none">
           <div class="two-col">
-            <div class="card">
-              <div class="card-title">1 · Download Template</div>
-              <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Required columns: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:12px">name, phone, email, type</code></p>
-              <button class="btn btn-outline" onclick="downloadTemplate('customers')">⬇ Customers Template</button>
-            </div>
-            <div class="card">
-              <div class="card-title">2 · Upload CSV</div>
-              <div class="drop-zone" id="dz_customers" onclick="document.getElementById('csv_customers').click()" ondragover="dzOver(event,'dz_customers')" ondragleave="dzLeave('dz_customers')" ondrop="dzDrop(event,'customers')">
-                <div class="dz-icon">📁</div>
-                <div class="dz-text">Click or drag &amp; drop CSV here</div>
-                <div class="dz-hint">.csv files only</div>
-              </div>
-              <input type="file" id="csv_customers" accept=".csv" style="display:none" onchange="handleCSV(event,'customers')">
-            </div>
+            <div class="card"><div class="card-title">1 · Download Template</div><p style="font-size:13px;color:var(--muted);margin-bottom:14px">Required columns: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:12px">name, phone, email, type</code></p><button class="btn btn-outline" onclick="downloadTemplate('customers')">⬇ Customers Template</button></div>
+            <div class="card"><div class="card-title">2 · Upload CSV</div><div class="drop-zone" id="dz_customers" onclick="document.getElementById('csv_customers').click()" ondragover="dzOver(event,'dz_customers')" ondragleave="dzLeave('dz_customers')" ondrop="dzDrop(event,'customers')"><div class="dz-icon">📁</div><div class="dz-text">Click or drag &amp; drop CSV here</div><div class="dz-hint">.csv files only</div></div><input type="file" id="csv_customers" accept=".csv" style="display:none" onchange="handleCSV(event,'customers')"></div>
           </div>
           <div class="card" id="preview_customers" style="display:none">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-              <div class="card-title" style="margin:0">3 · Preview &amp; Confirm</div>
-              <div style="display:flex;gap:8px">
-                <button class="btn btn-outline btn-sm" onclick="clearImport('customers')">✕ Clear</button>
-                <button class="btn btn-success" onclick="confirmImport('customers')">✅ Import All</button>
-              </div>
-            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="card-title" style="margin:0">3 · Preview &amp; Confirm</div><div style="display:flex;gap:8px"><button class="btn btn-outline btn-sm" onclick="clearImport('customers')">✕ Clear</button><button class="btn btn-success" onclick="confirmImport('customers')">✅ Import All</button></div></div>
             <div id="preview_status_customers" style="margin-bottom:10px;font-size:13px"></div>
             <div class="table-wrap"><table id="preview_table_customers"></table></div>
           </div>
         </div>
-
-        <!-- SALES -->
         <div id="imp_sales" style="display:none">
           <div class="two-col">
-            <div class="card">
-              <div class="card-title">1 · Download Template</div>
-              <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Required columns: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:12px">product_name, customer, qty, date</code></p>
-              <button class="btn btn-outline" onclick="downloadTemplate('sales')">⬇ Sales Template</button>
-            </div>
-            <div class="card">
-              <div class="card-title">2 · Upload CSV</div>
-              <div class="drop-zone" id="dz_sales" onclick="document.getElementById('csv_sales').click()" ondragover="dzOver(event,'dz_sales')" ondragleave="dzLeave('dz_sales')" ondrop="dzDrop(event,'sales')">
-                <div class="dz-icon">📁</div>
-                <div class="dz-text">Click or drag &amp; drop CSV here</div>
-                <div class="dz-hint">.csv files only</div>
-              </div>
-              <input type="file" id="csv_sales" accept=".csv" style="display:none" onchange="handleCSV(event,'sales')">
-            </div>
+            <div class="card"><div class="card-title">1 · Download Template</div><p style="font-size:13px;color:var(--muted);margin-bottom:14px">Required columns: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:12px">product_name, customer, qty, date</code></p><button class="btn btn-outline" onclick="downloadTemplate('sales')">⬇ Sales Template</button></div>
+            <div class="card"><div class="card-title">2 · Upload CSV</div><div class="drop-zone" id="dz_sales" onclick="document.getElementById('csv_sales').click()" ondragover="dzOver(event,'dz_sales')" ondragleave="dzLeave('dz_sales')" ondrop="dzDrop(event,'sales')"><div class="dz-icon">📁</div><div class="dz-text">Click or drag &amp; drop CSV here</div><div class="dz-hint">.csv files only</div></div><input type="file" id="csv_sales" accept=".csv" style="display:none" onchange="handleCSV(event,'sales')"></div>
           </div>
           <div class="card" id="preview_sales" style="display:none">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-              <div class="card-title" style="margin:0">3 · Preview &amp; Confirm</div>
-              <div style="display:flex;gap:8px">
-                <button class="btn btn-outline btn-sm" onclick="clearImport('sales')">✕ Clear</button>
-                <button class="btn btn-success" onclick="confirmImport('sales')">✅ Import All</button>
-              </div>
-            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="card-title" style="margin:0">3 · Preview &amp; Confirm</div><div style="display:flex;gap:8px"><button class="btn btn-outline btn-sm" onclick="clearImport('sales')">✕ Clear</button><button class="btn btn-success" onclick="confirmImport('sales')">✅ Import All</button></div></div>
             <div id="preview_status_sales" style="margin-bottom:10px;font-size:13px"></div>
             <div class="table-wrap"><table id="preview_table_sales"></table></div>
           </div>
         </div>
-
-        <!-- EXPENSES -->
         <div id="imp_expenses" style="display:none">
           <div class="two-col">
-            <div class="card">
-              <div class="card-title">1 · Download Template</div>
-              <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Required columns: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:12px">description, category, amount, date</code></p>
-              <button class="btn btn-outline" onclick="downloadTemplate('expenses')">⬇ Expenses Template</button>
-            </div>
-            <div class="card">
-              <div class="card-title">2 · Upload CSV</div>
-              <div class="drop-zone" id="dz_expenses" onclick="document.getElementById('csv_expenses').click()" ondragover="dzOver(event,'dz_expenses')" ondragleave="dzLeave('dz_expenses')" ondrop="dzDrop(event,'expenses')">
-                <div class="dz-icon">📁</div>
-                <div class="dz-text">Click or drag &amp; drop CSV here</div>
-                <div class="dz-hint">.csv files only</div>
-              </div>
-              <input type="file" id="csv_expenses" accept=".csv" style="display:none" onchange="handleCSV(event,'expenses')">
-            </div>
+            <div class="card"><div class="card-title">1 · Download Template</div><p style="font-size:13px;color:var(--muted);margin-bottom:14px">Required columns: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:12px">description, category, amount, date</code></p><button class="btn btn-outline" onclick="downloadTemplate('expenses')">⬇ Expenses Template</button></div>
+            <div class="card"><div class="card-title">2 · Upload CSV</div><div class="drop-zone" id="dz_expenses" onclick="document.getElementById('csv_expenses').click()" ondragover="dzOver(event,'dz_expenses')" ondragleave="dzLeave('dz_expenses')" ondrop="dzDrop(event,'expenses')"><div class="dz-icon">📁</div><div class="dz-text">Click or drag &amp; drop CSV here</div><div class="dz-hint">.csv files only</div></div><input type="file" id="csv_expenses" accept=".csv" style="display:none" onchange="handleCSV(event,'expenses')"></div>
           </div>
           <div class="card" id="preview_expenses" style="display:none">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-              <div class="card-title" style="margin:0">3 · Preview &amp; Confirm</div>
-              <div style="display:flex;gap:8px">
-                <button class="btn btn-outline btn-sm" onclick="clearImport('expenses')">✕ Clear</button>
-                <button class="btn btn-success" onclick="confirmImport('expenses')">✅ Import All</button>
-              </div>
-            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="card-title" style="margin:0">3 · Preview &amp; Confirm</div><div style="display:flex;gap:8px"><button class="btn btn-outline btn-sm" onclick="clearImport('expenses')">✕ Clear</button><button class="btn btn-success" onclick="confirmImport('expenses')">✅ Import All</button></div></div>
             <div id="preview_status_expenses" style="margin-bottom:10px;font-size:13px"></div>
             <div class="table-wrap"><table id="preview_table_expenses"></table></div>
           </div>
         </div>
-
-        <!-- IMPORT HISTORY -->
         <div class="card" style="margin-top:8px">
           <div class="card-title">Import History (this session)</div>
           <div id="importHistory"><div class="empty-state"><div class="e-icon">📂</div><p>No imports yet</p></div></div>
         </div>
       </div>
 
-    </div><!-- /main -->
-  </div><!-- /layout -->
-</div><!-- /app -->
+    </div>
+  </div>
+</div>
 
 <!-- INVOICE MODAL -->
 <div class="modal-bg" id="invoiceModal">
@@ -1349,30 +478,31 @@ tbody tr:last-child td { border-bottom: none; }
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
+// ===== HELPERS =====
+// FIX: safe HTML escape to prevent product names with < > & breaking table rows
+function esc(str) {
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
 // ===== STATE =====
-// FIX: Load from localStorage, but always ensure the default admin user exists.
-// The original bug: if erp_users was saved as [] (empty array), the || fallback
-// never fires because [] is truthy — so the default admin was permanently lost.
+const DEFAULT_ADMIN = { username:"admin", password:"123", role:"admin", created: new Date().toLocaleDateString() };
 
-const DEFAULT_ADMIN = { username: "admin", password: "123", role: "admin", created: new Date().toLocaleDateString() };
+let products  = JSON.parse(localStorage.getItem("erp_products"))  || [];
+let customers = JSON.parse(localStorage.getItem("erp_customers")) || [];
+let sales     = JSON.parse(localStorage.getItem("erp_sales"))     || [];
+let expenses  = JSON.parse(localStorage.getItem("erp_expenses"))  || [];
 
-let products   = JSON.parse(localStorage.getItem("erp_products"))   || [];
-let customers  = JSON.parse(localStorage.getItem("erp_customers"))  || [];
-let sales      = JSON.parse(localStorage.getItem("erp_sales"))      || [];
-let expenses   = JSON.parse(localStorage.getItem("erp_expenses"))   || [];
-
-// FIX: Load users safely — always ensure admin exists
-let users = (function() {
+let users = (function(){
   let stored = null;
-  try { stored = JSON.parse(localStorage.getItem("erp_users")); } catch(e) {}
-  if (!Array.isArray(stored) || stored.length === 0) {
-    return [DEFAULT_ADMIN];
-  }
-  // Ensure the default admin is always present (in case it was deleted externally)
+  try { stored = JSON.parse(localStorage.getItem("erp_users")); } catch(e){}
+  if (!Array.isArray(stored) || stored.length === 0) return [DEFAULT_ADMIN];
   const hasAdmin = stored.some(u => u.username === "admin");
   if (!hasAdmin) stored.unshift(DEFAULT_ADMIN);
   return stored;
@@ -1381,8 +511,6 @@ let users = (function() {
 let currentRole = "";
 let currentUser = "";
 let loginAttempts = 0;
-
-// ===== CHARTS REGISTRY =====
 let charts = {};
 
 // ===== LOGIN =====
@@ -1399,57 +527,36 @@ function login() {
   const p = document.getElementById('password').value;
   const err = document.getElementById('loginError');
   const hint = document.getElementById('loginResetHint');
-
-  // FIX: Re-ensure users array is valid before checking (guards against in-memory corruption)
-  if (!Array.isArray(users) || users.length === 0) {
-    users = [DEFAULT_ADMIN];
-  }
-
+  if (!Array.isArray(users) || users.length === 0) users = [DEFAULT_ADMIN];
   const found = users.find(x => x.username === u && x.password === p);
   if (!found) {
     loginAttempts++;
     err.style.display = 'block';
-    // Show reset hint after 2 failed attempts
-    if (loginAttempts >= 2) {
-      hint.style.display = 'block';
-    }
+    if (loginAttempts >= 2) hint.style.display = 'block';
     return;
   }
-
   loginAttempts = 0;
   err.style.display = 'none';
   hint.style.display = 'none';
   currentRole = found.role;
   currentUser = found.username;
-
   document.getElementById('loginPage').style.display = 'none';
   document.getElementById('app').style.display = 'block';
-
   document.getElementById('userAvatar').textContent = u[0].toUpperCase();
   document.getElementById('userInfoName').textContent = u;
   document.getElementById('userInfoRole').textContent = found.role.charAt(0).toUpperCase() + found.role.slice(1);
-
-  // Hide users section for non-admins
   if (currentRole !== 'admin') {
     document.getElementById('adminOnlyMsg').style.display = 'block';
     document.getElementById('userMgmtContent').style.display = 'none';
   }
-
-  // Set today's date on expense form
   document.getElementById('expDate').value = new Date().toISOString().split('T')[0];
-
   loadAll();
   show('dashboard');
 }
 
-// FIX: Reset function — clears all app data and restores default admin
 function resetAndLogin() {
-  if (!confirm('⚠️ This will clear ALL app data (products, sales, customers, expenses) and restore the default admin login (admin / 123).\n\nContinue?')) return;
-  localStorage.removeItem('erp_products');
-  localStorage.removeItem('erp_customers');
-  localStorage.removeItem('erp_sales');
-  localStorage.removeItem('erp_expenses');
-  localStorage.removeItem('erp_users');
+  if (!confirm('⚠️ This will clear ALL app data and restore the default admin login (admin / 123).\n\nContinue?')) return;
+  ['erp_products','erp_customers','erp_sales','erp_expenses','erp_users'].forEach(k => localStorage.removeItem(k));
   location.reload();
 }
 
@@ -1466,11 +573,8 @@ function show(id) {
   if (id === 'reports') renderReportCharts();
 }
 
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-}
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
 
-// ===== TABS =====
 function switchTab(tabId, btn) {
   ['rOverview','rSales','rExpenses','rInventory'].forEach(t => {
     const el = document.getElementById(t);
@@ -1501,10 +605,8 @@ function showToast(msg, type='success') {
   setTimeout(() => t.style.display = 'none', 3000);
 }
 
-// ===== MODAL =====
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-// ===== VALIDATION =====
 function validateRequired(fields) {
   for (let [val, name] of fields) {
     if (!val || val === '') { showToast(`⚠️ ${name} is required`, 'error'); return false; }
@@ -1513,7 +615,11 @@ function validateRequired(fields) {
 }
 
 // ===== INVENTORY =====
+// FIX 1: Duplicate product prevention + button debounce
 function addProduct() {
+  const btn = document.getElementById('addProductBtn');
+  if (btn.disabled) return;
+
   const name  = document.getElementById('pname').value.trim();
   const cat   = document.getElementById('pcat').value;
   const qty   = Number(document.getElementById('pqty').value);
@@ -1522,6 +628,16 @@ function addProduct() {
 
   if (!validateRequired([[name,'Product Name']])) return;
   if (qty < 0 || price <= 0) { showToast('⚠️ Enter valid qty and price', 'error'); return; }
+
+  // FIX: Check for duplicate product name (case-insensitive)
+  if (products.find(p => p.name.toLowerCase() === name.toLowerCase())) {
+    showToast(`⚠️ Product "${name}" already exists. Update qty instead.`, 'error');
+    return;
+  }
+
+  // FIX: Debounce button to prevent double-click duplicates
+  btn.disabled = true;
+  setTimeout(() => { btn.disabled = false; }, 1000);
 
   products.push({ name, cat, qty, price, low, added: new Date().toLocaleDateString() });
   ['pname','pqty','pprice','plowstock'].forEach(id => document.getElementById(id).value = '');
@@ -1536,6 +652,7 @@ function delProduct(i) {
   showToast('🗑️ Product deleted', 'error');
 }
 
+// FIX 2: loadProducts — use esc() for safe HTML, single-line product names in table
 function loadProducts() {
   const tb = document.querySelector('#ptable tbody');
   if (!products.length) {
@@ -1544,12 +661,14 @@ function loadProducts() {
     return;
   }
   tb.innerHTML = products.map((p,i) => {
-    const status = p.qty === 0 ? `<span class="badge badge-red">Out of Stock</span>`
-                 : p.qty <= p.low ? `<span class="badge badge-yellow">Low Stock</span>`
-                 : `<span class="badge badge-green">In Stock</span>`;
+    const status = p.qty === 0
+      ? `<span class="badge badge-red">Out of Stock</span>`
+      : p.qty <= p.low
+        ? `<span class="badge badge-yellow">Low Stock</span>`
+        : `<span class="badge badge-green">In Stock</span>`;
     return `<tr>
-      <td><strong>${p.name}</strong></td>
-      <td><span class="badge badge-blue">${p.cat||'—'}</span></td>
+      <td><strong>${esc(p.name)}</strong></td>
+      <td><span class="badge badge-blue">${esc(p.cat||'—')}</span></td>
       <td>${p.qty}</td>
       <td>₹${p.price.toLocaleString('en-IN')}</td>
       <td>${status}</td>
@@ -1557,8 +676,10 @@ function loadProducts() {
     </tr>`;
   }).join('');
 
-  const opts = products.map(p => `<option value="${p.name}">${p.name} (Stock: ${p.qty})</option>`).join('');
-  document.getElementById('sproduct').innerHTML = opts;
+  // FIX: Rebuild sales product dropdown from fresh array (no duplication)
+  document.getElementById('sproduct').innerHTML = products
+    .map(p => `<option value="${esc(p.name)}">${esc(p.name)} (Stock: ${p.qty})</option>`)
+    .join('');
 }
 
 // ===== CUSTOMERS =====
@@ -1567,10 +688,8 @@ function addCustomer() {
   const phone = document.getElementById('cphone').value.trim();
   const email = document.getElementById('cemail').value.trim();
   const type  = document.getElementById('ctype').value;
-
   if (!validateRequired([[name,'Name']])) return;
   if (phone && !/^\d{10}$/.test(phone)) { showToast('⚠️ Phone must be 10 digits', 'error'); return; }
-
   customers.push({ name, phone, email, type, joined: new Date().toLocaleDateString() });
   ['cname','cphone','cemail'].forEach(id => document.getElementById(id).value='');
   save();
@@ -1593,19 +712,18 @@ function loadCustomers() {
     return;
   }
   tb.innerHTML = customers.map((c,i) => {
-    const typeBadge = c.type === 'VIP' ? 'badge-yellow' : c.type === 'Wholesale' ? 'badge-purple' : 'badge-blue';
+    const typeBadge = c.type==='VIP'?'badge-yellow':c.type==='Wholesale'?'badge-purple':'badge-blue';
     return `<tr>
-      <td><strong>${c.name}</strong></td>
-      <td>${c.phone||'—'}</td>
-      <td>${c.email||'—'}</td>
-      <td><span class="badge ${typeBadge}">${c.type}</span></td>
+      <td><strong>${esc(c.name)}</strong></td>
+      <td>${esc(c.phone||'—')}</td>
+      <td>${esc(c.email||'—')}</td>
+      <td><span class="badge ${typeBadge}">${esc(c.type)}</span></td>
       <td>${c.joined}</td>
       <td><button class="btn btn-danger btn-sm" onclick="delCustomer(${i})">Delete</button></td>
     </tr>`;
   }).join('');
-
   sel.innerHTML = '<option value="">Walk-in Customer</option>' +
-    customers.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+    customers.map(c => `<option value="${esc(c.name)}">${esc(c.name)}</option>`).join('');
 }
 
 // ===== SALES =====
@@ -1614,8 +732,7 @@ function updateSalePrice() {
   const qty  = Number(document.getElementById('sqty').value) || 0;
   const p    = products.find(x => x.name === name);
   if (!p || qty <= 0) { document.getElementById('sTotal').value = ''; return; }
-  const total = qty * p.price;
-  const grand = total * 1.18;
+  const grand = qty * p.price * 1.18;
   document.getElementById('sTotal').value = `₹${grand.toLocaleString('en-IN',{minimumFractionDigits:2})}`;
 }
 
@@ -1623,20 +740,16 @@ function makeSale() {
   const name     = document.getElementById('sproduct').value;
   const customer = document.getElementById('scustomer').value;
   const qty      = Number(document.getElementById('sqty').value);
-
   if (!name) { showToast('⚠️ Select a product', 'error'); return; }
   if (!qty || qty <= 0) { showToast('⚠️ Enter valid quantity', 'error'); return; }
-
   const p = products.find(x => x.name === name);
   if (!p) { showToast('⚠️ Product not found', 'error'); return; }
   if (p.qty < qty) { showToast(`⚠️ Only ${p.qty} in stock!`, 'error'); return; }
-
   p.qty -= qty;
   const subtotal = qty * p.price;
   const gst      = +(subtotal * 0.18).toFixed(2);
   const grand    = +(subtotal + gst).toFixed(2);
   const date     = new Date().toLocaleString();
-
   const sale = { name, customer: customer||'Walk-in', qty, subtotal, gst, grand, date };
   sales.push(sale);
   document.getElementById('sqty').value = '';
@@ -1653,8 +766,8 @@ function loadSales() {
     return;
   }
   tb.innerHTML = [...sales].reverse().map(s => `<tr>
-    <td><strong>${s.name}</strong></td>
-    <td>${s.customer||'Walk-in'}</td>
+    <td><strong>${esc(s.name)}</strong></td>
+    <td>${esc(s.customer||'Walk-in')}</td>
     <td>${s.qty}</td>
     <td>₹${(s.subtotal||0).toLocaleString('en-IN')}</td>
     <td>₹${(s.gst||0).toLocaleString('en-IN')}</td>
@@ -1674,7 +787,7 @@ function showInvoice(sale) {
       <span style="color:var(--muted)">Tax Invoice</span>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;font-size:12px">
-      <div><span style="color:var(--muted)">Customer:</span> ${sale.customer}</div>
+      <div><span style="color:var(--muted)">Customer:</span> ${esc(sale.customer)}</div>
       <div><span style="color:var(--muted)">Date:</span> ${sale.date}</div>
     </div>
     <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px">
@@ -1685,7 +798,7 @@ function showInvoice(sale) {
         <th style="text-align:right;padding:6px;color:var(--muted)">Amount</th>
       </tr></thead>
       <tbody><tr>
-        <td style="padding:8px 6px">${sale.name}</td>
+        <td style="padding:8px 6px">${esc(sale.name)}</td>
         <td style="text-align:right;padding:8px 6px">${sale.qty}</td>
         <td style="text-align:right;padding:8px 6px">₹${(sale.subtotal/sale.qty).toLocaleString('en-IN')}</td>
         <td style="text-align:right;padding:8px 6px">₹${sale.subtotal.toLocaleString('en-IN')}</td>
@@ -1695,8 +808,7 @@ function showInvoice(sale) {
       <div>Subtotal: ₹${sale.subtotal.toLocaleString('en-IN')}</div>
       <div style="color:var(--muted)">GST (18%): ₹${sale.gst.toLocaleString('en-IN')}</div>
       <div style="font-size:18px;font-weight:700;color:var(--accent);margin-top:8px">Grand Total: ₹${sale.grand.toLocaleString('en-IN')}</div>
-    </div>
-  `;
+    </div>`;
   document.getElementById('invoiceContent').innerHTML = inv;
   document.getElementById('invoiceModal').classList.add('open');
 }
@@ -1705,36 +817,20 @@ function printInvoiceModal() {
   if (!currentInvoice) return;
   const s = currentInvoice;
   const w = window.open('','_blank','width=600,height=700');
-  w.document.write(`
-    <html><head><title>Invoice</title>
+  w.document.write(`<html><head><title>Invoice</title>
     <style>body{font-family:Arial;padding:40px;max-width:500px;margin:auto}
-    table{width:100%;border-collapse:collapse}
-    th,td{border:1px solid #ddd;padding:8px;text-align:left}
-    th{background:#f5f5f5}
-    .total{font-size:20px;font-weight:bold;color:#0a6}</style>
-    </head><body>
-    <h2>🧾 TAX INVOICE</h2>
-    <h3>RECONS ERP Pro</h3>
-    <p><strong>Powered by ALOK</strong></p>
-    <hr>
-    <p><strong>Customer Name:</strong> ${s.customer}</p>
-    <p><strong>Invoice Date:</strong> ${s.date}</p>
-    <table>
-      <thead><tr><th>Product Description</th><th>Quantity</th><th>Unit Rate (₹)</th><th>Amount (₹)</th></tr></thead>
-      <tbody><tr>
-        <td>${s.name}</td>
-        <td>${s.qty}</td>
-        <td>${(s.subtotal / s.qty).toLocaleString('en-IN')}</td>
-        <td>${s.subtotal.toLocaleString('en-IN')}</td>
-      </tr></tbody>
-    </table>
+    table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;padding:8px;text-align:left}
+    th{background:#f5f5f5}.total{font-size:20px;font-weight:bold;color:#0a6}</style></head><body>
+    <h2>🧾 TAX INVOICE</h2><h3>RECONS ERP Pro</h3><p><strong>Powered by ALOK</strong></p><hr>
+    <p><strong>Customer:</strong> ${esc(s.customer)}</p>
+    <p><strong>Date:</strong> ${s.date}</p>
+    <table><thead><tr><th>Product</th><th>Qty</th><th>Rate (₹)</th><th>Amount (₹)</th></tr></thead>
+    <tbody><tr><td>${esc(s.name)}</td><td>${s.qty}</td><td>${(s.subtotal/s.qty).toLocaleString('en-IN')}</td><td>${s.subtotal.toLocaleString('en-IN')}</td></tr></tbody></table>
     <p><strong>Subtotal:</strong> ₹${s.subtotal.toLocaleString('en-IN')}</p>
     <p><strong>GST @ 18%:</strong> ₹${s.gst.toLocaleString('en-IN')}</p>
-    <p class="total"><strong>Grand Total:</strong> ₹${s.grand.toLocaleString('en-IN')}</p>
-    <hr>
-    <p style="text-align:center;">Thank you for your business.<br><strong>RECONS ERP Pro</strong><br>Smart Business Management Solution</p>
-    <script>window.print();<\/script>
-    </body></html>`);
+    <p class="total"><strong>Grand Total: ₹${s.grand.toLocaleString('en-IN')}</strong></p>
+    <hr><p style="text-align:center;">Thank you for your business.<br><strong>RECONS ERP Pro</strong></p>
+    <script>window.print();<\/script></body></html>`);
   w.document.close();
 }
 
@@ -1744,10 +840,8 @@ function addExpense() {
   const cat    = document.getElementById('expCat').value;
   const amount = Number(document.getElementById('expAmount').value);
   const date   = document.getElementById('expDate').value;
-
   if (!validateRequired([[desc,'Description']])) return;
   if (!amount || amount <= 0) { showToast('⚠️ Enter valid amount', 'error'); return; }
-
   expenses.push({ desc, cat, amount, date: date || new Date().toLocaleDateString() });
   document.getElementById('expDesc').value = '';
   document.getElementById('expAmount').value = '';
@@ -1762,21 +856,23 @@ function delExpense(i) {
   showToast('🗑️ Expense deleted', 'error');
 }
 
+// FIX 3: loadExpenses — correct index for delete button (store actual index in data attribute)
 function loadExpenses() {
   const tb = document.querySelector('#exptable tbody');
   if (!expenses.length) {
     tb.innerHTML = `<tr><td colspan="5"><div class="empty-state"><div class="e-icon">📤</div><p>No expenses recorded</p></div></td></tr>`;
     return;
   }
-  tb.innerHTML = [...expenses].reverse().map((e,ri) => {
-    const i = expenses.length - 1 - ri;
-    const catBadge = e.cat === 'Salaries' ? 'badge-purple' : e.cat === 'Inventory Purchase' ? 'badge-blue' : 'badge-yellow';
+  // FIX: Map with actual index first, then reverse for display — no more off-by-one
+  const indexed = expenses.map((e, i) => ({ ...e, _idx: i }));
+  tb.innerHTML = [...indexed].reverse().map(e => {
+    const catBadge = e.cat==='Salaries'?'badge-purple':e.cat==='Inventory Purchase'?'badge-blue':'badge-yellow';
     return `<tr>
-      <td>${e.desc}</td>
-      <td><span class="badge ${catBadge}">${e.cat}</span></td>
+      <td>${esc(e.desc)}</td>
+      <td><span class="badge ${catBadge}">${esc(e.cat)}</span></td>
       <td>₹${e.amount.toLocaleString('en-IN')}</td>
       <td>${e.date}</td>
-      <td><button class="btn btn-danger btn-sm" onclick="delExpense(${i})">Delete</button></td>
+      <td><button class="btn btn-danger btn-sm" onclick="delExpense(${e._idx})">Delete</button></td>
     </tr>`;
   }).join('');
 }
@@ -1787,11 +883,9 @@ function addUser() {
   const uname = document.getElementById('newUsername').value.trim();
   const pass  = document.getElementById('newPassword').value;
   const role  = document.getElementById('newRole').value;
-
   if (!validateRequired([[uname,'Username'],[pass,'Password']])) return;
   if (pass.length < 4) { showToast('⚠️ Password min 4 chars', 'error'); return; }
   if (users.find(u => u.username === uname)) { showToast('⚠️ Username already exists', 'error'); return; }
-
   users.push({ username: uname, password: pass, role, created: new Date().toLocaleDateString() });
   document.getElementById('newUsername').value = '';
   document.getElementById('newPassword').value = '';
@@ -1809,12 +903,12 @@ function delUser(i) {
 
 function loadUsers() {
   const tb = document.querySelector('#usertable tbody');
-  const roleBadge = r => r === 'admin' ? 'badge-red' : r === 'manager' ? 'badge-yellow' : 'badge-blue';
+  const roleBadge = r => r==='admin'?'badge-red':r==='manager'?'badge-yellow':'badge-blue';
   tb.innerHTML = users.map((u,i) => `<tr>
-    <td><strong>${u.username}</strong>${u.username===currentUser?' <span class="badge badge-green">You</span>':''}</td>
+    <td><strong>${esc(u.username)}</strong>${u.username===currentUser?' <span class="badge badge-green">You</span>':''}</td>
     <td><span class="badge ${roleBadge(u.role)}">${u.role}</span></td>
     <td>${u.created||'—'}</td>
-    <td>${u.username!==currentUser ? `<button class="btn btn-danger btn-sm" onclick="delUser(${i})">Delete</button>` : '—'}</td>
+    <td>${u.username!==currentUser?`<button class="btn btn-danger btn-sm" onclick="delUser(${i})">Delete</button>`:'—'}</td>
   </tr>`).join('');
 }
 
@@ -1823,7 +917,6 @@ function loadDashboard() {
   const totalRevenue  = sales.reduce((a,b) => a+(b.grand||0), 0);
   const totalExpenses = expenses.reduce((a,b) => a+(b.amount||0), 0);
   const profit        = totalRevenue - totalExpenses;
-
   document.getElementById('d_products').textContent    = products.length;
   document.getElementById('d_customers').textContent   = customers.length;
   document.getElementById('d_sales_count').textContent = sales.length;
@@ -1838,11 +931,11 @@ function loadDashboard() {
   } else {
     lsEl.innerHTML = lowStock.map(p => `
       <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)">
-        <span>${p.name}</span>
+        <span>${esc(p.name)}</span>
         <div style="text-align:right">
           <span style="color:${p.qty===0?'var(--danger)':'var(--accent2)'};font-weight:700">${p.qty} left</span>
           <div class="progress-bar" style="width:80px">
-            <div class="progress-fill" style="width:${Math.min(100,(p.qty/p.low)*100)}%;background:${p.qty===0?'var(--danger)':'var(--accent2)'}"></div>
+            <div class="progress-fill" style="width:${Math.min(100,(p.qty/Math.max(p.low,1))*100)}%;background:${p.qty===0?'var(--danger)':'var(--accent2)'}"></div>
           </div>
         </div>
       </div>`).join('');
@@ -1855,34 +948,29 @@ function loadDashboard() {
   } else {
     rsEl.innerHTML = recent.map(s => `
       <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)">
-        <div>
-          <strong>${s.name}</strong> × ${s.qty}
-          <div style="font-size:12px;color:var(--muted)">${s.customer}</div>
-        </div>
+        <div><strong>${esc(s.name)}</strong> × ${s.qty}<div style="font-size:12px;color:var(--muted)">${esc(s.customer)}</div></div>
         <strong style="color:var(--success)">₹${(s.grand||0).toLocaleString('en-IN')}</strong>
       </div>`).join('');
   }
-
   renderDashboardCharts();
 }
 
-// ===== CHART HELPERS =====
+// ===== CHARTS =====
 function destroyChart(id) {
   if (charts[id]) { charts[id].destroy(); delete charts[id]; }
 }
 
 const chartDefaults = {
-  plugins: { legend: { labels: { color: '#64748b', font: { family: 'DM Sans', size: 11 } } } },
+  plugins: { legend: { labels: { color:'#64748b', font:{ family:'DM Sans', size:11 } } } },
   scales: {
-    x: { ticks: { color: '#64748b', font: { family: 'DM Sans' } }, grid: { color: '#1e2d45' } },
-    y: { ticks: { color: '#64748b', font: { family: 'DM Sans' } }, grid: { color: '#1e2d45' } }
+    x: { ticks: { color:'#64748b', font:{ family:'DM Sans' } }, grid: { color:'#1e2d45' } },
+    y: { ticks: { color:'#64748b', font:{ family:'DM Sans' } }, grid: { color:'#1e2d45' } }
   }
 };
 
 function renderDashboardCharts() {
   const days = [...Array(7)].map((_,i) => {
-    const d = new Date();
-    d.setDate(d.getDate() - (6-i));
+    const d = new Date(); d.setDate(d.getDate() - (6-i));
     return d.toLocaleDateString('en-IN',{month:'short',day:'numeric'});
   });
   const salesByDay = days.map(d => sales.filter(s => {
@@ -1893,13 +981,9 @@ function renderDashboardCharts() {
   const sc = document.getElementById('salesChart');
   if (sc) {
     charts['salesChart'] = new Chart(sc, {
-      type: 'line',
-      data: {
-        labels: days,
-        datasets: [{ label: 'Revenue (₹)', data: salesByDay, borderColor: '#22d3ee',
-          backgroundColor: 'rgba(34,211,238,0.08)', fill: true, tension: 0.4, pointRadius: 3 }]
-      },
-      options: { ...chartDefaults, responsive: true, maintainAspectRatio: false }
+      type:'line',
+      data:{ labels:days, datasets:[{ label:'Revenue (₹)', data:salesByDay, borderColor:'#22d3ee', backgroundColor:'rgba(34,211,238,0.08)', fill:true, tension:0.4, pointRadius:3 }] },
+      options:{ ...chartDefaults, responsive:true, maintainAspectRatio:false }
     });
   }
 
@@ -1909,14 +993,9 @@ function renderDashboardCharts() {
   const ec = document.getElementById('expenseChart');
   if (ec && Object.keys(expCats).length) {
     charts['expenseChart'] = new Chart(ec, {
-      type: 'doughnut',
-      data: {
-        labels: Object.keys(expCats),
-        datasets: [{ data: Object.values(expCats),
-          backgroundColor: ['#22d3ee','#f59e0b','#a78bfa','#10b981','#f43f5e','#3b82f6'] }]
-      },
-      options: { responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { position: 'right', labels: { color:'#64748b', font:{family:'DM Sans'} } } } }
+      type:'doughnut',
+      data:{ labels:Object.keys(expCats), datasets:[{ data:Object.values(expCats), backgroundColor:['#22d3ee','#f59e0b','#a78bfa','#10b981','#f43f5e','#3b82f6'] }] },
+      options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'right', labels:{ color:'#64748b', font:{ family:'DM Sans' } } } } }
     });
   }
 }
@@ -1926,7 +1005,6 @@ function renderReportCharts() {
   const totalExpenses = expenses.reduce((a,b) => a+(b.amount||0), 0);
   const totalGST      = sales.reduce((a,b) => a+(b.gst||0), 0);
   const profit        = totalRevenue - totalExpenses;
-
   document.getElementById('r_revenue').textContent  = '₹'+totalRevenue.toLocaleString('en-IN');
   document.getElementById('r_expenses').textContent = '₹'+totalExpenses.toLocaleString('en-IN');
   document.getElementById('r_profit').textContent   = '₹'+profit.toLocaleString('en-IN');
@@ -1936,17 +1014,9 @@ function renderReportCharts() {
   const plc = document.getElementById('plChart');
   if (plc) {
     charts['plChart'] = new Chart(plc, {
-      type: 'bar',
-      data: {
-        labels: ['Revenue','Expenses','Net Profit'],
-        datasets: [{
-          data: [totalRevenue, totalExpenses, profit],
-          backgroundColor: ['rgba(34,211,238,0.7)','rgba(244,63,94,0.7)', profit>=0?'rgba(16,185,129,0.7)':'rgba(244,63,94,0.7)'],
-          borderRadius: 6
-        }]
-      },
-      options: { ...chartDefaults, responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false } } }
+      type:'bar',
+      data:{ labels:['Revenue','Expenses','Net Profit'], datasets:[{ data:[totalRevenue,totalExpenses,profit], backgroundColor:['rgba(34,211,238,0.7)','rgba(244,63,94,0.7)',profit>=0?'rgba(16,185,129,0.7)':'rgba(244,63,94,0.7)'], borderRadius:6 }] },
+      options:{ ...chartDefaults, responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } } }
     });
   }
 
@@ -1956,40 +1026,26 @@ function renderReportCharts() {
   const psc = document.getElementById('productSalesChart');
   if (psc) {
     charts['productSalesChart'] = new Chart(psc, {
-      type: 'bar',
-      data: {
-        labels: Object.keys(prodSales),
-        datasets: [{ label: 'Revenue (₹)', data: Object.values(prodSales),
-          backgroundColor: 'rgba(167,139,250,0.7)', borderRadius: 6 }]
-      },
-      options: { ...chartDefaults, responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false } }, indexAxis: 'y' }
+      type:'bar',
+      data:{ labels:Object.keys(prodSales), datasets:[{ label:'Revenue (₹)', data:Object.values(prodSales), backgroundColor:'rgba(167,139,250,0.7)', borderRadius:6 }] },
+      options:{ ...chartDefaults, responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } }, indexAxis:'y' }
     });
   }
 
   const tpEl = document.getElementById('topProductsTable');
   const sorted = Object.entries(prodSales).sort((a,b)=>b[1]-a[1]);
-  if (!sorted.length) { tpEl.innerHTML = `<div class="empty-state"><div class="e-icon">📊</div><p>No sales data</p></div>`; }
-  else {
-    tpEl.innerHTML = `<table><thead><tr><th>#</th><th>Product</th><th>Revenue</th></tr></thead><tbody>
-      ${sorted.map(([name,rev],i)=>`<tr><td>${i+1}</td><td>${name}</td><td><strong>₹${rev.toLocaleString('en-IN')}</strong></td></tr>`).join('')}
-    </tbody></table>`;
-  }
+  if (!sorted.length) { tpEl.innerHTML=`<div class="empty-state"><div class="e-icon">📊</div><p>No sales data</p></div>`; }
+  else { tpEl.innerHTML=`<table><thead><tr><th>#</th><th>Product</th><th>Revenue</th></tr></thead><tbody>${sorted.map(([name,rev],i)=>`<tr><td>${i+1}</td><td>${esc(name)}</td><td><strong>₹${rev.toLocaleString('en-IN')}</strong></td></tr>`).join('')}</tbody></table>`; }
 
   const expCats = {};
-  expenses.forEach(e => { expCats[e.cat] = (expCats[e.cat]||0) + e.amount; });
+  expenses.forEach(e => { expCats[e.cat]=(expCats[e.cat]||0)+e.amount; });
   destroyChart('expCatChart');
   const ecc = document.getElementById('expCatChart');
   if (ecc) {
     charts['expCatChart'] = new Chart(ecc, {
-      type: 'pie',
-      data: {
-        labels: Object.keys(expCats),
-        datasets: [{ data: Object.values(expCats),
-          backgroundColor: ['#22d3ee','#f59e0b','#a78bfa','#10b981','#f43f5e','#3b82f6'] }]
-      },
-      options: { responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { position: 'right', labels: { color:'#64748b', font:{family:'DM Sans'} } } } }
+      type:'pie',
+      data:{ labels:Object.keys(expCats), datasets:[{ data:Object.values(expCats), backgroundColor:['#22d3ee','#f59e0b','#a78bfa','#10b981','#f43f5e','#3b82f6'] }] },
+      options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'right', labels:{ color:'#64748b', font:{ family:'DM Sans' } } } } }
     });
   }
 
@@ -1997,20 +1053,17 @@ function renderReportCharts() {
   const stc = document.getElementById('stockChart');
   if (stc && products.length) {
     charts['stockChart'] = new Chart(stc, {
-      type: 'bar',
-      data: {
-        labels: products.map(p=>p.name),
-        datasets: [
-          { label: 'Qty', data: products.map(p=>p.qty), backgroundColor: 'rgba(34,211,238,0.6)', borderRadius:6 },
-          { label: 'Value (₹)', data: products.map(p=>p.qty*p.price), backgroundColor: 'rgba(245,158,11,0.6)', borderRadius:6 }
-        ]
-      },
-      options: { ...chartDefaults, responsive: true, maintainAspectRatio: false }
+      type:'bar',
+      data:{ labels:products.map(p=>p.name), datasets:[
+        { label:'Qty', data:products.map(p=>p.qty), backgroundColor:'rgba(34,211,238,0.6)', borderRadius:6 },
+        { label:'Value (₹)', data:products.map(p=>p.qty*p.price), backgroundColor:'rgba(245,158,11,0.6)', borderRadius:6 }
+      ]},
+      options:{ ...chartDefaults, responsive:true, maintainAspectRatio:false }
     });
   }
 }
 
-// ===== SEARCH / FILTER =====
+// ===== SEARCH =====
 function filterTable(tableId, inputId) {
   const q = document.getElementById(inputId).value.toLowerCase();
   document.querySelectorAll(`#${tableId} tbody tr`).forEach(row => {
@@ -2023,8 +1076,8 @@ function exportTableCSV(tableId, filename) {
   const table = document.getElementById(tableId);
   if (!table) return;
   const rows = [...table.querySelectorAll('tr')];
-  const csv = rows.map(r => [...r.querySelectorAll('th,td')].map(c => `"${c.textContent.trim()}"`).join(',')).join('\n');
-  const blob = new Blob([csv], { type: 'text/csv' });
+  const csv = rows.map(r => [...r.querySelectorAll('th,td')].map(c=>`"${c.textContent.trim()}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type:'text/csv' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = filename;
@@ -2036,32 +1089,16 @@ function exportTableCSV(tableId, filename) {
 function exportSalesPDF() {
   const w = window.open('','_blank','width=800,height:900');
   const totalRev = sales.reduce((a,b)=>a+(b.grand||0),0);
-  w.document.write(`
-    <html><head><title>Sales Report</title>
-    <style>
-    body{font-family:Arial;padding:40px;color:#1e293b}
-    h1{color:#0f172a;border-bottom:2px solid #22d3ee;padding-bottom:10px}
-    table{width:100%;border-collapse:collapse;margin-top:20px;font-size:13px}
-    th{background:#0f172a;color:white;padding:10px}
-    td{padding:9px;border-bottom:1px solid #e2e8f0}
-    tr:nth-child(even){background:#f8fafc}
-    .total{font-size:18px;font-weight:bold;margin-top:20px;text-align:right;color:#0a6}
-    </style></head><body>
-    <h1>📊 Sales Report — RECONS  ERP Pro Powered By ALOK</h1>
-    <p>Generated: ${new Date().toLocaleString()}</p>
-    <table>
-      <thead><tr><th>Product</th><th>Customer</th><th>Qty</th><th>Subtotal</th><th>GST</th><th>Grand Total</th><th>Date</th></tr></thead>
-      <tbody>${sales.map(s=>`<tr>
-        <td>${s.name}</td><td>${s.customer||'Walk-in'}</td>
-        <td>${s.qty}</td><td>₹${(s.subtotal||0).toLocaleString('en-IN')}</td>
-        <td>₹${(s.gst||0).toLocaleString('en-IN')}</td>
-        <td><strong>₹${(s.grand||0).toLocaleString('en-IN')}</strong></td>
-        <td>${s.date}</td>
-      </tr>`).join('')}</tbody>
-    </table>
+  w.document.write(`<html><head><title>Sales Report</title>
+    <style>body{font-family:Arial;padding:40px;color:#1e293b}h1{color:#0f172a;border-bottom:2px solid #22d3ee;padding-bottom:10px}
+    table{width:100%;border-collapse:collapse;margin-top:20px;font-size:13px}th{background:#0f172a;color:white;padding:10px}
+    td{padding:9px;border-bottom:1px solid #e2e8f0}tr:nth-child(even){background:#f8fafc}
+    .total{font-size:18px;font-weight:bold;margin-top:20px;text-align:right;color:#0a6}</style></head><body>
+    <h1>📊 Sales Report — RECONS ERP Pro</h1><p>Generated: ${new Date().toLocaleString()}</p>
+    <table><thead><tr><th>Product</th><th>Customer</th><th>Qty</th><th>Subtotal</th><th>GST</th><th>Grand Total</th><th>Date</th></tr></thead>
+    <tbody>${sales.map(s=>`<tr><td>${esc(s.name)}</td><td>${esc(s.customer||'Walk-in')}</td><td>${s.qty}</td><td>₹${(s.subtotal||0).toLocaleString('en-IN')}</td><td>₹${(s.gst||0).toLocaleString('en-IN')}</td><td><strong>₹${(s.grand||0).toLocaleString('en-IN')}</strong></td><td>${s.date}</td></tr>`).join('')}</tbody></table>
     <p class="total">Total Revenue: ₹${totalRev.toLocaleString('en-IN')}</p>
-    <script>window.print();<\/script>
-    </body></html>`);
+    <script>window.print();<\/script></body></html>`);
   w.document.close();
 }
 
@@ -2070,26 +1107,25 @@ let importPreviews = {};
 let importHistory  = [];
 
 const TEMPLATES = {
-  products:  { headers: ['name','category','qty','price','low_stock'], sample: [['Widget A','Electronics','50','299','10'],['T-Shirt Blue','Clothing','120','499','20']] },
-  customers: { headers: ['name','phone','email','type'],               sample: [['Rahul Sharma','9876543210','rahul@email.com','Regular'],['Priya Singh','9123456789','priya@mail.com','VIP']] },
-  sales:     { headers: ['product_name','customer','qty','date'],      sample: [['Widget A','Rahul Sharma','2','2025-04-10'],['T-Shirt Blue','Walk-in','5','2025-04-11']] },
-  expenses:  { headers: ['description','category','amount','date'],    sample: [['Office Rent','Rent','15000','2025-04-01'],['Staff Salary','Salaries','30000','2025-04-01']] }
+  products:  { headers:['name','category','qty','price','low_stock'], sample:[['Widget A','Electronics','50','299','10'],['T-Shirt Blue','Clothing','120','499','20']] },
+  customers: { headers:['name','phone','email','type'],               sample:[['Rahul Sharma','9876543210','rahul@email.com','Regular'],['Priya Singh','9123456789','priya@mail.com','VIP']] },
+  sales:     { headers:['product_name','customer','qty','date'],      sample:[['Widget A','Rahul Sharma','2','2025-04-10'],['T-Shirt Blue','Walk-in','5','2025-04-11']] },
+  expenses:  { headers:['description','category','amount','date'],    sample:[['Office Rent','Rent','15000','2025-04-01'],['Staff Salary','Salaries','30000','2025-04-01']] }
 };
 
 function switchImportTab(tabId, btn) {
   ['imp_products','imp_customers','imp_sales','imp_expenses'].forEach(t => {
-    const el = document.getElementById(t);
-    if (el) el.style.display = 'none';
+    const el = document.getElementById(t); if (el) el.style.display='none';
   });
-  document.getElementById(tabId).style.display = 'block';
+  document.getElementById(tabId).style.display='block';
   document.querySelectorAll('#bulkimport .tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
 }
 
 function downloadTemplate(type) {
   const t = TEMPLATES[type];
-  const csv = [t.headers.join(','), ...t.sample.map(r => r.join(','))].join('\n');
-  const blob = new Blob([csv], { type: 'text/csv' });
+  const csv = [t.headers.join(','), ...t.sample.map(r=>r.join(','))].join('\n');
+  const blob = new Blob([csv], { type:'text/csv' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = `template_${type}.csv`;
@@ -2097,43 +1133,37 @@ function downloadTemplate(type) {
   showToast(`⬇ template_${type}.csv downloaded`);
 }
 
-function dzOver(e, id) { e.preventDefault(); document.getElementById(id).classList.add('over'); }
-function dzLeave(id)   { document.getElementById(id).classList.remove('over'); }
-function dzDrop(e, type) {
+function dzOver(e,id)   { e.preventDefault(); document.getElementById(id).classList.add('over'); }
+function dzLeave(id)    { document.getElementById(id).classList.remove('over'); }
+function dzDrop(e,type) {
   e.preventDefault();
-  const id = 'dz_' + type;
-  document.getElementById(id).classList.remove('over');
+  document.getElementById('dz_'+type).classList.remove('over');
   const file = e.dataTransfer.files[0];
   if (file) processCSVFile(file, type);
 }
-
-function handleCSV(e, type) {
-  const file = e.target.files[0];
-  if (file) processCSVFile(file, type);
-}
+function handleCSV(e,type) { const file=e.target.files[0]; if (file) processCSVFile(file,type); }
 
 function processCSVFile(file, type) {
-  if (!file.name.endsWith('.csv')) { showToast('⚠️ Only .csv files are supported', 'error'); return; }
+  if (!file.name.endsWith('.csv')) { showToast('⚠️ Only .csv files', 'error'); return; }
   const reader = new FileReader();
   reader.onload = e => parseAndPreview(e.target.result, type);
   reader.readAsText(file);
 }
 
 function parseCSV(text) {
-  const lines = text.trim().split('\n').filter(l => l.trim());
-  if (lines.length < 2) return { headers: [], rows: [] };
-  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g,'').toLowerCase());
+  const lines = text.trim().split('\n').filter(l=>l.trim());
+  if (lines.length < 2) return { headers:[], rows:[] };
+  const headers = lines[0].split(',').map(h=>h.trim().replace(/^"|"$/g,'').toLowerCase());
   const rows = lines.slice(1).map(line => {
-    const vals = [];
-    let cur = '', inQ = false;
+    const vals=[]; let cur='',inQ=false;
     for (let c of line) {
-      if (c === '"') { inQ = !inQ; }
-      else if (c === ',' && !inQ) { vals.push(cur.trim()); cur = ''; }
-      else { cur += c; }
+      if (c==='"') { inQ=!inQ; }
+      else if (c===',' && !inQ) { vals.push(cur.trim()); cur=''; }
+      else { cur+=c; }
     }
     vals.push(cur.trim());
-    const obj = {};
-    headers.forEach((h, i) => obj[h] = (vals[i] || '').replace(/^"|"$/g,'').trim());
+    const obj={};
+    headers.forEach((h,i)=>obj[h]=(vals[i]||'').replace(/^"|"$/g,'').trim());
     return obj;
   });
   return { headers, rows };
@@ -2142,110 +1172,93 @@ function parseCSV(text) {
 function parseAndPreview(text, type) {
   const { headers, rows } = parseCSV(text);
   const required = TEMPLATES[type].headers;
-
-  const missing = required.filter(r => !headers.includes(r));
-  if (missing.length) {
-    showToast(`⚠️ Missing columns: ${missing.join(', ')}`, 'error');
-    return;
-  }
-
-  const validated = rows.map((row, i) => {
-    const errors = [];
-    if (type === 'products') {
+  const missing = required.filter(r=>!headers.includes(r));
+  if (missing.length) { showToast(`⚠️ Missing columns: ${missing.join(', ')}`, 'error'); return; }
+  const validated = rows.map((row,i) => {
+    const errors=[];
+    if (type==='products') {
       if (!row.name) errors.push('name required');
-      if (isNaN(Number(row.qty)) || Number(row.qty) < 0) errors.push('invalid qty');
-      if (isNaN(Number(row.price)) || Number(row.price) <= 0) errors.push('invalid price');
+      if (isNaN(Number(row.qty))||Number(row.qty)<0) errors.push('invalid qty');
+      if (isNaN(Number(row.price))||Number(row.price)<=0) errors.push('invalid price');
     }
-    if (type === 'customers') {
+    if (type==='customers') {
       if (!row.name) errors.push('name required');
-      if (row.phone && !/^\d{10}$/.test(row.phone)) errors.push('phone must be 10 digits');
+      if (row.phone&&!/^\d{10}$/.test(row.phone)) errors.push('phone must be 10 digits');
     }
-    if (type === 'sales') {
+    if (type==='sales') {
       if (!row.product_name) errors.push('product_name required');
-      if (isNaN(Number(row.qty)) || Number(row.qty) <= 0) errors.push('invalid qty');
+      if (isNaN(Number(row.qty))||Number(row.qty)<=0) errors.push('invalid qty');
     }
-    if (type === 'expenses') {
+    if (type==='expenses') {
       if (!row.description) errors.push('description required');
-      if (isNaN(Number(row.amount)) || Number(row.amount) <= 0) errors.push('invalid amount');
+      if (isNaN(Number(row.amount))||Number(row.amount)<=0) errors.push('invalid amount');
     }
-    return { ...row, _row: i+2, _errors: errors, _ok: errors.length === 0 };
+    return {...row, _row:i+2, _errors:errors, _ok:errors.length===0};
   });
-
   importPreviews[type] = validated;
-
-  const ok  = validated.filter(r => r._ok).length;
-  const err = validated.filter(r => !r._ok).length;
-
-  const tbl = document.getElementById('preview_table_' + type);
+  const ok=validated.filter(r=>r._ok).length, err=validated.filter(r=>!r._ok).length;
+  const tbl = document.getElementById('preview_table_'+type);
   const dispHeaders = required;
-  let html = `<thead><tr>${dispHeaders.map(h=>`<th>${h}</th>`).join('')}<th>Row</th><th>Status</th></tr></thead><tbody>`;
-  html += validated.map(row => {
-    const cls = row._ok ? 'import-row-ok' : 'import-row-err';
-    const status = row._ok
-      ? `<span class="badge badge-green">✓ OK</span>`
-      : `<span class="badge badge-red" title="${row._errors.join('; ')}">✕ ${row._errors[0]}</span>`;
-    return `<tr class="${cls}">${dispHeaders.map(h=>`<td>${row[h]||'—'}</td>`).join('')}<td>${row._row}</td><td>${status}</td></tr>`;
+  let html=`<thead><tr>${dispHeaders.map(h=>`<th>${h}</th>`).join('')}<th>Row</th><th>Status</th></tr></thead><tbody>`;
+  html+=validated.map(row=>{
+    const cls=row._ok?'import-row-ok':'import-row-err';
+    const status=row._ok?`<span class="badge badge-green">✓ OK</span>`:`<span class="badge badge-red" title="${row._errors.join('; ')}">✕ ${row._errors[0]}</span>`;
+    return `<tr class="${cls}">${dispHeaders.map(h=>`<td>${esc(row[h]||'—')}</td>`).join('')}<td>${row._row}</td><td>${status}</td></tr>`;
   }).join('');
-  html += '</tbody>';
-  tbl.innerHTML = html;
-
-  document.getElementById('preview_status_' + type).innerHTML =
-    `<span class="badge badge-green">✓ ${ok} valid rows</span>&nbsp;` +
-    (err ? `<span class="badge badge-red">✕ ${err} rows with errors (will be skipped)</span>` : '');
-
-  document.getElementById('preview_' + type).style.display = 'block';
-  document.getElementById('preview_' + type).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  html+='</tbody>';
+  tbl.innerHTML=html;
+  document.getElementById('preview_status_'+type).innerHTML=
+    `<span class="badge badge-green">✓ ${ok} valid rows</span>&nbsp;`+
+    (err?`<span class="badge badge-red">✕ ${err} rows with errors (will be skipped)</span>`:'');
+  document.getElementById('preview_'+type).style.display='block';
+  document.getElementById('preview_'+type).scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
 function clearImport(type) {
   delete importPreviews[type];
-  document.getElementById('preview_' + type).style.display = 'none';
-  document.getElementById('csv_' + type).value = '';
+  document.getElementById('preview_'+type).style.display='none';
+  document.getElementById('csv_'+type).value='';
 }
 
 function confirmImport(type) {
-  const rows = (importPreviews[type] || []).filter(r => r._ok);
-  if (!rows.length) { showToast('⚠️ No valid rows to import', 'error'); return; }
-
-  let imported = 0;
-
-  if (type === 'products') {
+  const rows=(importPreviews[type]||[]).filter(r=>r._ok);
+  if (!rows.length) { showToast('⚠️ No valid rows to import','error'); return; }
+  let imported=0;
+  if (type==='products') {
     rows.forEach(r => {
-      products.push({ name: r.name, cat: r.category || 'Other', qty: Number(r.qty),
-        price: Number(r.price), low: Number(r.low_stock) || 5, added: new Date().toLocaleDateString() });
+      // FIX: skip duplicate product names during bulk import too
+      if (products.find(p=>p.name.toLowerCase()===r.name.toLowerCase())) return;
+      products.push({name:r.name,cat:r.category||'Other',qty:Number(r.qty),price:Number(r.price),low:Number(r.low_stock)||5,added:new Date().toLocaleDateString()});
       imported++;
     });
   }
-  if (type === 'customers') {
+  if (type==='customers') {
     rows.forEach(r => {
-      customers.push({ name: r.name, phone: r.phone || '', email: r.email || '',
-        type: r.type || 'Regular', joined: new Date().toLocaleDateString() });
+      customers.push({name:r.name,phone:r.phone||'',email:r.email||'',type:r.type||'Regular',joined:new Date().toLocaleDateString()});
       imported++;
     });
   }
-  if (type === 'sales') {
+  if (type==='sales') {
     rows.forEach(r => {
-      const p = products.find(x => x.name.toLowerCase() === r.product_name.toLowerCase());
+      const p=products.find(x=>x.name.toLowerCase()===r.product_name.toLowerCase());
       if (!p) return;
-      const qty = Number(r.qty);
-      if (p.qty < qty) return;
-      p.qty -= qty;
-      const subtotal = +(qty * p.price).toFixed(2);
-      const gst      = +(subtotal * 0.18).toFixed(2);
-      const grand    = +(subtotal + gst).toFixed(2);
-      sales.push({ name: p.name, customer: r.customer || 'Walk-in', qty, subtotal, gst, grand, date: r.date || new Date().toLocaleString() });
+      const qty=Number(r.qty);
+      if (p.qty<qty) return;
+      p.qty-=qty;
+      const subtotal=+(qty*p.price).toFixed(2);
+      const gst=+(subtotal*0.18).toFixed(2);
+      const grand=+(subtotal+gst).toFixed(2);
+      sales.push({name:p.name,customer:r.customer||'Walk-in',qty,subtotal,gst,grand,date:r.date||new Date().toLocaleString()});
       imported++;
     });
   }
-  if (type === 'expenses') {
+  if (type==='expenses') {
     rows.forEach(r => {
-      expenses.push({ desc: r.description, cat: r.category || 'Other',
-        amount: Number(r.amount), date: r.date || new Date().toLocaleDateString() });
+      expenses.push({desc:r.description,cat:r.category||'Other',amount:Number(r.amount),date:r.date||new Date().toLocaleDateString()});
       imported++;
     });
   }
-
-  importHistory.unshift({ type, count: imported, total: rows.length + (importPreviews[type].filter(r=>!r._ok).length), time: new Date().toLocaleString() });
+  importHistory.unshift({type,count:imported,total:rows.length+(importPreviews[type].filter(r=>!r._ok).length),time:new Date().toLocaleString()});
   renderImportHistory();
   save();
   clearImport(type);
@@ -2253,13 +1266,10 @@ function confirmImport(type) {
 }
 
 function renderImportHistory() {
-  const el = document.getElementById('importHistory');
-  if (!importHistory.length) {
-    el.innerHTML = `<div class="empty-state"><div class="e-icon">📂</div><p>No imports yet</p></div>`;
-    return;
-  }
-  const icons = { products:'📦', customers:'👥', sales:'🛒', expenses:'📤' };
-  el.innerHTML = importHistory.map(h => `
+  const el=document.getElementById('importHistory');
+  if (!importHistory.length) { el.innerHTML=`<div class="empty-state"><div class="e-icon">📂</div><p>No imports yet</p></div>`; return; }
+  const icons={products:'📦',customers:'👥',sales:'🛒',expenses:'📤'};
+  el.innerHTML=importHistory.map(h=>`
     <div class="imp-hist-item">
       <div>${icons[h.type]||'📂'} <strong>${h.count}</strong> ${h.type} imported <span style="color:var(--muted)">(${h.total} rows parsed)</span></div>
       <div style="color:var(--muted);font-size:12px">${h.time}</div>
