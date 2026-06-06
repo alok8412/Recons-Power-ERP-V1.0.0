@@ -496,8 +496,18 @@ const DEFAULT_ADMIN = { username:"admin", password:"123", role:"admin", created:
 
 let products  = JSON.parse(localStorage.getItem("erp_products"))  || [];
 let customers = JSON.parse(localStorage.getItem("erp_customers")) || [];
-let sales     = JSON.parse(localStorage.getItem("erp_sales"))     || [];
-let expenses  = JSON.parse(localStorage.getItem("erp_expenses"))  || [];
+let sales     = (JSON.parse(localStorage.getItem("erp_sales")) || []).map(s => ({
+  ...s,
+  qty:      Number(s.qty)      || 0,
+  subtotal: Number(s.subtotal) || 0,
+  gst:      Number(s.gst)      || 0,
+  grand:    Number(s.grand)    || 0,
+}));
+// FIX: sanitize expenses on load — strip any ₹/currency symbols, force numeric amount
+let expenses  = (JSON.parse(localStorage.getItem("erp_expenses")) || []).map(e => ({
+  ...e,
+  amount: Number(String(e.amount).replace(/[^\d.]/g, '')) || 0,
+}));
 
 let users = (function(){
   let stored = null;
@@ -550,6 +560,10 @@ function login() {
     document.getElementById('userMgmtContent').style.display = 'none';
   }
   document.getElementById('expDate').value = new Date().toISOString().split('T')[0];
+  // FIX: repair any corrupted numeric fields in already-loaded arrays
+  expenses = expenses.map(e => ({ ...e, amount: Number(String(e.amount||0).replace(/[^\d.]/g,'')) || 0 }));
+  sales    = sales.map(s => ({ ...s, grand: Number(s.grand)||0, subtotal: Number(s.subtotal)||0, gst: Number(s.gst)||0 }));
+  products = products.map(p => ({ ...p, qty: Number(p.qty)||0, price: Number(p.price)||0 }));
   loadAll();
   show('dashboard');
 }
@@ -842,7 +856,8 @@ function addExpense() {
   const date   = document.getElementById('expDate').value;
   if (!validateRequired([[desc,'Description']])) return;
   if (!amount || amount <= 0) { showToast('⚠️ Enter valid amount', 'error'); return; }
-  expenses.push({ desc, cat, amount, date: date || new Date().toLocaleDateString() });
+  // FIX: always store as proper Number, never string
+  expenses.push({ desc, cat, amount: Number(amount), date: date || new Date().toLocaleDateString() });
   document.getElementById('expDesc').value = '';
   document.getElementById('expAmount').value = '';
   save();
@@ -914,8 +929,8 @@ function loadUsers() {
 
 // ===== DASHBOARD =====
 function loadDashboard() {
-  const totalRevenue  = sales.reduce((a,b) => a+(b.grand||0), 0);
-  const totalExpenses = expenses.reduce((a,b) => a+(b.amount||0), 0);
+  const totalRevenue  = sales.reduce((a,b) => a+(Number(b.grand)||0), 0);
+  const totalExpenses = expenses.reduce((a,b) => a+(Number(b.amount)||0), 0);
   const profit        = totalRevenue - totalExpenses;
   document.getElementById('d_products').textContent    = products.length;
   document.getElementById('d_customers').textContent   = customers.length;
@@ -988,7 +1003,7 @@ function renderDashboardCharts() {
   }
 
   const expCats = {};
-  expenses.forEach(e => { expCats[e.cat] = (expCats[e.cat]||0) + e.amount; });
+  expenses.forEach(e => { expCats[e.cat] = (expCats[e.cat]||0) + (Number(e.amount)||0); });
   destroyChart('expenseChart');
   const ec = document.getElementById('expenseChart');
   if (ec && Object.keys(expCats).length) {
@@ -1001,9 +1016,9 @@ function renderDashboardCharts() {
 }
 
 function renderReportCharts() {
-  const totalRevenue  = sales.reduce((a,b) => a+(b.grand||0), 0);
-  const totalExpenses = expenses.reduce((a,b) => a+(b.amount||0), 0);
-  const totalGST      = sales.reduce((a,b) => a+(b.gst||0), 0);
+  const totalRevenue  = sales.reduce((a,b) => a+(Number(b.grand)||0), 0);
+  const totalExpenses = expenses.reduce((a,b) => a+(Number(b.amount)||0), 0);
+  const totalGST      = sales.reduce((a,b) => a+(Number(b.gst)||0), 0);
   const profit        = totalRevenue - totalExpenses;
   document.getElementById('r_revenue').textContent  = '₹'+totalRevenue.toLocaleString('en-IN');
   document.getElementById('r_expenses').textContent = '₹'+totalExpenses.toLocaleString('en-IN');
@@ -1038,7 +1053,7 @@ function renderReportCharts() {
   else { tpEl.innerHTML=`<table><thead><tr><th>#</th><th>Product</th><th>Revenue</th></tr></thead><tbody>${sorted.map(([name,rev],i)=>`<tr><td>${i+1}</td><td>${esc(name)}</td><td><strong>₹${rev.toLocaleString('en-IN')}</strong></td></tr>`).join('')}</tbody></table>`; }
 
   const expCats = {};
-  expenses.forEach(e => { expCats[e.cat]=(expCats[e.cat]||0)+e.amount; });
+  expenses.forEach(e => { expCats[e.cat]=(expCats[e.cat]||0)+(Number(e.amount)||0); });
   destroyChart('expCatChart');
   const ecc = document.getElementById('expCatChart');
   if (ecc) {
